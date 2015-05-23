@@ -1,0 +1,97 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.nzcong</groupId>
+	<artifactId>nzcong</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>weibo-service</module>
+		<module>weibo-service-interface</module>
+	</modules>
+
+	<properties>
+		<weibo-service.version>0.0.1</weibo-service.version>
+		<weibo-service-interface>0.0.1</weibo-service-interface>
+
+		<spring.version>4.0.2.RELEASE</spring.version>
+		<jackson.version>2.3.1</jackson.version>
+		<slf4j.version>1.7.6</slf4j.version>
+		<logback.version>1.1.1</logback.version>
+		<jstl.version>1.2</jstl.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<jsp-api.version>2.1</jsp-api.version>
+		<commons-lang3.version>3.1</commons-lang3.version>
+		<commons-fileupload.version>1.2.1</commons-fileupload.version>
+		<commons-io.version>2.4</commons-io.version>
+		
+		<common-httpclient.version>3.1</common-httpclient.version>
+		<httpclient.version>4.3.2</httpclient.version>
+		<dom4j.version>1.6.1</dom4j.version>
+	</properties>
+
+	<dependencyManagement>
+
+		<dependencies>
+			<!-- LOGGING begin -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<!-- 代码直接调用log4j会被桥接到slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>log4j-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- 代码直接调用common-logging会被桥接到slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- 代码直接调用java.util.logging会被桥接到slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- LOGGING end -->
+
+			<!-- GENERAL UTILS begin -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
+			</dependency>
+			<!-- GENERAL UTILS end -->
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>${common-httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${dom4j.version}</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+</project>
