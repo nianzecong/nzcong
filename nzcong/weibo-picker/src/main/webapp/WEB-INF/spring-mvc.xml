@@ -9,19 +9,22 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- 自动扫描且只扫描@Controller -->
-	<context:component-scan base-package="cn.nzcong" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	<context:component-scan base-package="cn.nzcong"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-	
+
 	<!-- 默认的注解映射的支持 -->
 	<!-- 有了它，就不需要显式的配置DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter了 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
-		<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
-		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-	    	<constructor-arg value="UTF-8" />
-		</bean>
+			<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 

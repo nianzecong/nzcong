@@ -8,8 +8,8 @@ import cn.nzcong.weibo.service.WeiboService;
 public class WeiboServiceImpl implements WeiboService {
 
 	@Override
-	public String login() {
-		return "seccess";
+	public String test(){
+		return "success";
 	}
-
+	
 }
