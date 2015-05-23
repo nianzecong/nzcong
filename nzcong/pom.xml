@@ -9,14 +9,16 @@
 	<modules>
 		<module>weibo-service</module>
 		<module>weibo-service-interface</module>
+		<module>weibo-picker</module>
 	</modules>
 
 	<properties>
 		<weibo-service.version>0.0.1</weibo-service.version>
 		<weibo-service-interface>0.0.1</weibo-service-interface>
+		<weibo-picker.version>0.0.1</weibo-picker.version>
 
 		<spring.version>4.0.2.RELEASE</spring.version>
-		<jackson.version>2.3.1</jackson.version>
+		<jackson.version>1.9.11</jackson.version>
 		<slf4j.version>1.7.6</slf4j.version>
 		<logback.version>1.1.1</logback.version>
 		<jstl.version>1.2</jstl.version>
@@ -25,7 +27,7 @@
 		<commons-lang3.version>3.1</commons-lang3.version>
 		<commons-fileupload.version>1.2.1</commons-fileupload.version>
 		<commons-io.version>2.4</commons-io.version>
-		
+
 		<common-httpclient.version>3.1</common-httpclient.version>
 		<httpclient.version>4.3.2</httpclient.version>
 		<dom4j.version>1.6.1</dom4j.version>
@@ -34,6 +36,45 @@
 	<dependencyManagement>
 
 		<dependencies>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet-api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>${jsp-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<!-- JSON begin -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${fasterxml.jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-jaxb-annotations</artifactId>
+				<version>${fasterxml.jackson.version}</version>
+			</dependency>
+			<!-- JSON end -->
 			<!-- LOGGING begin -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
