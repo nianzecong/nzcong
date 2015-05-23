@@ -11,6 +11,11 @@
 	<version>${weibo-service.version}</version>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		
 		<!-- LOGGING begin -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -43,10 +48,10 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<!-- GENERAL UTILS end -->
-			<dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpclient</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-httpclient</groupId>
@@ -57,5 +62,11 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+		</dependency>
+
 	</dependencies>
 </project>

@@ -19,6 +19,7 @@
 
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<jackson.version>1.9.11</jackson.version>
+		<fasterxml.jackson.version>2.3.1</fasterxml.jackson.version>
 		<slf4j.version>1.7.6</slf4j.version>
 		<logback.version>1.1.1</logback.version>
 		<jstl.version>1.2</jstl.version>
@@ -31,11 +32,20 @@
 		<common-httpclient.version>3.1</common-httpclient.version>
 		<httpclient.version>4.3.2</httpclient.version>
 		<dom4j.version>1.6.1</dom4j.version>
+
+		<hessian.version>4.0.7</hessian.version>
 	</properties>
 
 	<dependencyManagement>
 
 		<dependencies>
+
+			<dependency>
+				<groupId>cn.nzcong</groupId>
+				<artifactId>weibo-service-interface</artifactId>
+				<version>${weibo-service-interface}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
@@ -130,7 +140,11 @@
 				<artifactId>dom4j</artifactId>
 				<version>${dom4j.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>${hessian.version}</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>

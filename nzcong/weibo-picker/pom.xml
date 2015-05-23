@@ -12,6 +12,12 @@
 	<version>${weibo-picker.version}</version>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>cn.nzcong</groupId>
+			<artifactId>weibo-service-interface</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>

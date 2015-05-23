@@ -23,5 +23,5 @@
     <root level="debug">
     	<appender-ref ref="stdout" />
     	<appender-ref ref="rollingFile" /> 
-	</root>  
+	</root>
 </configuration>
