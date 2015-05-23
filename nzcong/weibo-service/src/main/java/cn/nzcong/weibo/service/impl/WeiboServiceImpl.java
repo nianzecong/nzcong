@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import cn.nzcong.utils.DateTimeUtils;
 import cn.nzcong.weibo.exception.WeiboAuthException;
+import cn.nzcong.weibo.model.User;
 import cn.nzcong.weibo.service.WeiboService;
 import cn.nzcong.weibo.weibo4j.Oauth;
 import cn.nzcong.weibo.weibo4j.Timeline;
@@ -37,9 +39,9 @@ public class WeiboServiceImpl implements WeiboService {
 			throw new WeiboAuthException(e);
 		}
 	}
-	
+
 	@Override
-	public List<cn.nzcong.weibo.model.Status> getTimeLine(String tocken) throws WeiboAuthException{
+	public List<cn.nzcong.weibo.model.Status> getTimeLine(String tocken) throws WeiboAuthException {
 		log.debug("getTimeLine - tocken : " + tocken);
 		Timeline tm = new Timeline(tocken);
 		List<cn.nzcong.weibo.model.Status> statusList = new ArrayList<cn.nzcong.weibo.model.Status>();
@@ -63,7 +65,7 @@ public class WeiboServiceImpl implements WeiboService {
 		cn.nzcong.weibo.model.Status vo = new cn.nzcong.weibo.model.Status();
 		vo.setBmiddlePic(s.getBmiddlePic());
 		vo.setCommentsCount(s.getCommentsCount());
-		vo.setCreatedAt(s.getCreatedAt());
+		vo.setCreatedAt(DateTimeUtils.getDateTimeStr(s.getCreatedAt()));
 		vo.setId(s.getId());
 		vo.setLatitude(s.getLatitude());
 		vo.setLongitude(s.getLongitude());
@@ -73,8 +75,22 @@ public class WeiboServiceImpl implements WeiboService {
 		vo.setRetweetedStatus(convert(s.getRetweetedStatus()));
 		vo.setText(s.getText());
 		vo.setThumbnailPic(s.getThumbnailPic());
+		vo.setUser(convert(s.getUser()));
 		return vo;
 	}
 
+	private User convert(cn.nzcong.weibo.weibo4j.model.User user) {
+		if (user == null)
+			return null;
+		User vo = new User();
+		vo.setDescription(user.getDescription());
+		vo.setGender(user.getGender());
+		vo.setId(user.getId());
+		vo.setImageUrl(user.getProfileImageUrl());
+		vo.setLocation(user.getLocation());
+		vo.setScreenName(user.getScreenName());
+		vo.setUrl(user.getUrl());
+		return vo;
+	}
 
 }

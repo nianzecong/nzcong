@@ -45,6 +45,16 @@ a.button-menu.current span{background:url(../images/button.png) no-repeat -100px
 div.bottom{background: #FFF4DE;background-image:none;height:20px;display:block;width:100%;margin-right:auto;margin-left:auto;border-top:#dFd4bE 1px solid;}
 div.bottom div.container a,div.bottom .container span{color:#dFd4bE}
 
+div.weibolist{width:100%;-webkit-column-count: 3;-moz-column-count: 3;column-count: 3;}
+div.weiboItem{width:100%;background:#eFe4aE;display:inline-block;margin:2%;}
+div.weiboUser{width:100%;background:#dFd4bE;padding-top:5px;padding-bottom:5px}
+div.weiboUser a{padding-left:5px;}
+div.weiboContent div{margin:5px 10px 5px 10px;word-wrap:break-word;}
+div.weiboImages img{margin-left:4%; width:27%;margin-top:10px}
+div.weiboFunction span{color:#aFa48E;float:right;margin:5px}
+div.weiboFunction span.fl{color:#aFa48E;float:left;margin:5px;}
+div.weiboFunction span a{color:#aFa48E !important;float:left;margin:5px;}
+
 
 a.button-menu{display:none !important;}
 
@@ -54,6 +64,10 @@ a.button-menu{display:none !important;}
 	body{margin-top:90px}
 	div.header div.navi{position:fixed;left:0;top:50px;width:100%;background:#dFd4bE;}
 	div.header div.navi a{margin:10px}
+	div.weibolist{width:100%;-webkit-column-count: 2;-moz-column-count: 2;column-count: 2;}
+	@media (max-width:600px) {
+		div.weibolist{width:100%;-webkit-column-count: 1;-moz-column-count: 1;column-count: 1;}
+	}
 }
 
 @media (orientation:landscape) and (min-width: 321px) and (max-width:979px){
@@ -69,6 +83,9 @@ a.button-menu{display:none !important;}
 	div.header div.navi a{margin:10px}
 	
 	div.bottom{padding-left:60px;width:auto}
+	@media (max-width:600px) {
+		div.weibolist{width:100%;-webkit-column-count: 1;-moz-column-count: 1;column-count: 1;}
+	}
 }
 
 @media (max-width:320px){
@@ -78,4 +95,5 @@ a.button-menu{display:none !important;}
 	div.header div.navi a{margin:10px;}
 	a.button{display:none !important;}
 	a.button-menu{display:block !important;}
+	div.weibolist{width:100%;-webkit-column-count: 1;-moz-column-count: 1;column-count: 1;}
 }

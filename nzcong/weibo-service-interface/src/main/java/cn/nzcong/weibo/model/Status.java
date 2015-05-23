@@ -7,7 +7,7 @@ public class Status implements Serializable {
 
 	private static final long serialVersionUID = -8795691786466526420L;
 
-	private Date createdAt; // status创建时间
+	private String createdAt; // status创建时间
 	private String id; // status id
 	private String mid; // 微博MID
 	private String text; // 微博内容
@@ -19,11 +19,19 @@ public class Status implements Serializable {
 	private double longitude = -1; // 经度
 	private int repostsCount; // 转发数
 	private int commentsCount; // 评论数
+	private User user;
+	
 
-	public Date getCreatedAt() {
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 	public String getId() {
