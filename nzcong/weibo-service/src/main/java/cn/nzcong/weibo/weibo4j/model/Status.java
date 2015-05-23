@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.nzcong.weibo.weibo4j.model.Source;
 import cn.nzcong.weibo.weibo4j.http.Response;
 import cn.nzcong.weibo.weibo4j.org.json.JSONArray;
 import cn.nzcong.weibo.weibo4j.org.json.JSONException;
