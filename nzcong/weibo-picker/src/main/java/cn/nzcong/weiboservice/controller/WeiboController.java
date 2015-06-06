@@ -16,8 +16,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.nzcong.utils.AppConfig;
 import cn.nzcong.weibo.exception.WeiboAuthException;
-import cn.nzcong.weibo.model.Status;
+import cn.nzcong.weibo.model.Weibo;
 import cn.nzcong.weibo.service.WeiboService;
 
 @Controller
@@ -26,7 +27,9 @@ public class WeiboController {
 
 	private static Logger log = LoggerFactory.getLogger(WeiboController.class);
 
-	private String tocken = "";
+	private String getToken(){
+		return AppConfig.getParameter("weibo.token");
+	}
 
 	@Autowired
 	private WeiboService weiboService;
@@ -34,6 +37,12 @@ public class WeiboController {
 	@RequestMapping(value = "/timeline")
 	public String timeline(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "weiboTimeline";
+	}
+	
+	@RequestMapping(value = "/reload")
+	public @ResponseBody
+	String reload(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return String.valueOf(AppConfig.reload());
 	}
 	
 	@RequestMapping(value = "/login")
@@ -46,7 +55,7 @@ public class WeiboController {
 	public String updateCode(String code, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		log.debug("updateCode - " + code);
 		try {
-			this.tocken = weiboService.getTockenByCode(code);
+			String token = weiboService.getTockenByCode(code);
 		} catch (WeiboAuthException e) {
 			//TODO redirect
 		}
@@ -58,10 +67,10 @@ public class WeiboController {
 	@RequestMapping(value = "/getTimeLine")
 	public @ResponseBody
 	Map getTimeLine(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		List<Status> weiboList = null;
+		List<Weibo> weiboList = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			weiboList = weiboService.getTimeLine(tocken);
+			weiboList = weiboService.getTimeLine(getToken());
 		} catch (WeiboAuthException e) {
 			//TODO redirect
 		}

@@ -50,7 +50,7 @@ import cn.nzcong.weibo.weibo4j.org.json.JSONObject;
  * Super class of Weibo Response objects.
  * 
  * @see weibo4j.DirectMessage
- * @see weibo4j.model.Status
+ * @see Weibo.model.Status
  * @see weibo4j.model.User
  * @author Yusuke Yamamoto - yusuke at mac.com
  */

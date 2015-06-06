@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import cn.nzcong.utils.DateTimeUtils;
 import cn.nzcong.weibo.exception.WeiboAuthException;
 import cn.nzcong.weibo.model.User;
+import cn.nzcong.weibo.model.Weibo;
 import cn.nzcong.weibo.service.WeiboService;
 import cn.nzcong.weibo.weibo4j.Oauth;
+import cn.nzcong.weibo.weibo4j.Place;
 import cn.nzcong.weibo.weibo4j.Timeline;
 import cn.nzcong.weibo.weibo4j.model.Status;
 import cn.nzcong.weibo.weibo4j.model.StatusWapper;
@@ -41,14 +43,30 @@ public class WeiboServiceImpl implements WeiboService {
 	}
 
 	@Override
-	public List<cn.nzcong.weibo.model.Status> getTimeLine(String tocken) throws WeiboAuthException {
-		log.debug("getTimeLine - tocken : " + tocken);
-		Timeline tm = new Timeline(tocken);
-		List<cn.nzcong.weibo.model.Status> statusList = new ArrayList<cn.nzcong.weibo.model.Status>();
+	public List<cn.nzcong.weibo.model.Weibo> getTimeLine(String token) throws WeiboAuthException {
+		log.debug("getTimeLine - tocken : " + token);
+		Timeline tm = new Timeline(token);
+		List<cn.nzcong.weibo.model.Weibo> statusList = new ArrayList<cn.nzcong.weibo.model.Weibo>();
 		try {
 			StatusWapper status = tm.getFriendsTimeline();
 			for (Status s : status.getStatuses()) {
-				cn.nzcong.weibo.model.Status temps = convert(s.getRetweetedStatus() == null ? s : s.getRetweetedStatus());
+				cn.nzcong.weibo.model.Weibo temps = convert(s.getRetweetedStatus() == null ? s : s.getRetweetedStatus());
+				statusList.add(temps);
+			}
+		} catch (WeiboException e) {
+			log.error("get Time line error!!" + e);
+			throw new WeiboAuthException();
+		}
+		return statusList;
+	}
+	
+	public List<cn.nzcong.weibo.model.Weibo> getNearByTimeLine(String token, String lat, String lon) throws WeiboAuthException {
+		log.debug("getTimeLine - tocken : " + token);
+		List<cn.nzcong.weibo.model.Weibo> statusList = new ArrayList<cn.nzcong.weibo.model.Weibo>();
+		try {
+			StatusWapper status = new Place(token).nearbyTimeLine(lat, lon);
+			for (Status s : status.getStatuses()) {
+				cn.nzcong.weibo.model.Weibo temps = convert(s.getRetweetedStatus() == null ? s : s.getRetweetedStatus());
 				statusList.add(temps);
 			}
 		} catch (WeiboException e) {
@@ -59,14 +77,14 @@ public class WeiboServiceImpl implements WeiboService {
 	}
 
 	// 微博原文转换
-	private cn.nzcong.weibo.model.Status convert(Status s) {
+	private cn.nzcong.weibo.model.Weibo convert(Status s) {
 		if (s == null)
 			return null;
-		cn.nzcong.weibo.model.Status vo = new cn.nzcong.weibo.model.Status();
+		cn.nzcong.weibo.model.Weibo vo = new cn.nzcong.weibo.model.Weibo();
 		vo.setBmiddlePic(s.getBmiddlePic());
 		vo.setCommentsCount(s.getCommentsCount());
-		vo.setCreatedAt(DateTimeUtils.getDateTimeStr(s.getCreatedAt()));
-		vo.setId(s.getId());
+		vo.setCreatedat(DateTimeUtils.getDateTimeStr(s.getCreatedAt()));
+		vo.setWeiboid(s.getId());
 		vo.setLatitude(s.getLatitude());
 		vo.setLongitude(s.getLongitude());
 		vo.setMid(s.getMid());
@@ -93,4 +111,16 @@ public class WeiboServiceImpl implements WeiboService {
 		return vo;
 	}
 
+	public static void main(String[] args) {
+		WeiboServiceImpl client = new WeiboServiceImpl();
+		try {
+			System.out.println(client.getauthUrl());
+			System.out.println(client.getNearByTimeLine("2.00EaJgPD0Jdf5406d7fda56e7ilL6D", "39.9", "116.4"));
+		} catch (WeiboAuthException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
