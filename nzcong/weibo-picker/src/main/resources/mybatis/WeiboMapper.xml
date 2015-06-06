@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>     
+<!DOCTYPE mapper PUBLIC 
+"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.nzcong.weiboservice.dao.WeiboDao">
+	<sql id="select">
+		SELECT *
+	</sql>
+	<!-- 用户添加 -->
+	<insert id="addWeibo" parameterType="cn.nzcong.weibo.model.Weibo">
+		INSERT INTO user(
+		weiboid, mid, createdat, text, thumbnailPic,
+		bmiddlePic, originalPic, reweiboId, latitude, longitude,
+		repostsCount, commentsCount, updatetime)
+		VALUES(
+		weiboid, mid, createdat, text, thumbnailPic,
+		bmiddlePic, originalPic, reweiboId, latitude, longitude,
+		repostsCount, commentsCount, now()
+		)
+	</insert>
+
+	<select id="getUserByLoginName" parameterType="String"
+		resultType="list">
+		<include refid="select" />
+		FROM user
+		WHERE loginName = #{loginName}
+	</select>
+
+</mapper>
