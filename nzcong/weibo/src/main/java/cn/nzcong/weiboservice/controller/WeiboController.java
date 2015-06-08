@@ -41,6 +41,11 @@ public class WeiboController {
 	@Autowired
 	private TimerService timerService;
 
+	@RequestMapping(value = "/test")
+	public void timelinetest(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		timerService.checkTimeLine();
+	}
+	
 	@RequestMapping(value = "/timeline")
 	public String timeline(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "weiboTimeline";

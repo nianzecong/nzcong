@@ -6,6 +6,8 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -56,11 +58,15 @@ public class TimerServiceImpl implements TimerService{
 	}
 
 	public static void main(String[] args) {
-		for(int i = 0 ; i < 1000 ; i++){
-			System.out.print(String.valueOf(new Random().nextInt(100) < 20 ? "true" : "") + "\t");
-			if(i%20 == 19)
-				System.out.println();
-		}
+//		for(int i = 0 ; i < 1000 ; i++){
+//			System.out.print(String.valueOf(new Random().nextInt(100) < 20 ? "true" : "") + "\t");
+//			if(i%20 == 19)
+//				System.out.println();
+//		}
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
+		AppConfig.configure("E:/GIT/nzcong/nzcong/weibo/src/main/webapp/WEB-INF/appconfig.xml");
+		TimerServiceImpl service = new TimerServiceImpl();
+		service.checkTimeLine();
 	}
 	
 }
