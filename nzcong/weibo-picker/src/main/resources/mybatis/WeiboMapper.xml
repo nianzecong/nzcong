@@ -9,22 +9,22 @@
 	</sql>
 	<!-- 用户添加 -->
 	<insert id="addWeibo" parameterType="cn.nzcong.weibo.model.Weibo">
-		INSERT INTO user(
-		weiboid, mid, createdat, text, thumbnailPic,
-		bmiddlePic, originalPic, reweiboId, latitude, longitude,
-		repostsCount, commentsCount, updatetime)
+		INSERT INTO weibo(
+			weiboid, mid, createdat, text, thumbnailPic,
+			bmiddlePic, originalPic, reweiboId, latitude, longitude,
+			repostsCount, commentsCount, updatetime)
 		VALUES(
-		weiboid, mid, createdat, text, thumbnailPic,
-		bmiddlePic, originalPic, reweiboId, latitude, longitude,
-		repostsCount, commentsCount, now()
+			'${weiboid}', '${mid}', '${createdat}', '${text}', '${thumbnailPic}',
+			'${bmiddlePic}', '${originalPic}', '${reweiboId}', '${latitude}', '${longitude}',
+			'${repostsCount}', '${commentsCount}', now()
 		)
 	</insert>
 
-	<select id="getUserByLoginName" parameterType="String"
-		resultType="list">
+	<select id="getWeibo" parameterType="String"
+		resultType="cn.nzcong.weibo.model.Weibo">
 		<include refid="select" />
-		FROM user
-		WHERE loginName = #{loginName}
+		FROM weibo
+		WHERE weiboid = #{id}
 	</select>
 
 </mapper>

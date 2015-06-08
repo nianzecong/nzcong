@@ -42,13 +42,18 @@ function initTimeLine() {
 					text = text.replace(huati, "<a class=\"huati\" href=\"http://huati.weibo.com/k/" + huati.replace(/#/g, "") + "\" title=\"" + huati + "\" target=\"blank\">" + huati + "</a>");
 				}
 				// 替换艾特
-				var mat = (text + " ").match(/@(\S{2,20})(?=[\s，。,])/g);
+				var mat = (text + " ").match(/@(\S{2,20})(?=[\s，。,:：()（）])/g);
 				for(var j = 0 ; mat && j < mat.length ; j++){
 					var at = mat[j];
-					text = text.replace(at, "<a class=\"huati\" href=\"http://weibo.com/n/" + at.replace("@","") + "\" title=\"" + at.replace("@","") + "\" target=\"blank\">" + at + "</a>");
+					text = text.replace(at, "<a class=\"at\" href=\"http://weibo.com/n/" + at.replace("@","") + "\" title=\"" + at.replace("@","") + "\" target=\"blank\">" + at + "</a>");
 				}
 				listStr += "<div class=\"weiboItem\">";
-				listStr += "<div class=\"weiboUser\"><a href=\"http://weibo.com/" + user.id + "\">@" + user.screenName + "</a></div>";
+				// 被删除的微博
+				if(user){
+					listStr += "<div class=\"weiboUser\"><a href=\"http://weibo.com/" + user.id + "\">@" + user.screenName + "</a></div>";
+				} else {
+					listStr += "<div class=\"weiboUser\"><a href=\"javascript:void(0)\">无名</a></div>";
+				}
 				listStr += "<div class=\"weiboContent\">";
 				listStr += "<div>" + text + "</div>";
 				listStr += "</div><div class=\"weiboImages\">";

@@ -51,6 +51,8 @@ div.weiboItem a.link{background:#dFd4bE;border:1px solid #bFb4bE;color:#7F747E;d
 div.weiboItem a.link:hover{border:1px solid #7F747E;text-decoration:none;}
 div.weiboItem a.huati{background:#b9b9FF;border:1px solid #59999F;color:#39599F !important;display:inline-block;width:auto;padding:1px;margin:3px;cursor:pointer;font-size: 0.8rem;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
 div.weiboItem a.huati:hover{border:1px solid #39595F;text-decoration:none;}
+div.weiboItem a.at{background:#d9FFd9;border:1px solid #79bF79;color:#59bF59 !important;display:inline-block;width:auto;padding:1px;margin:3px;cursor:pointer;font-size: 0.8rem;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
+div.weiboItem a.at:hover{border:1px solid #395F59;text-decoration:none;}
 div.weiboUser{width:100%;background:#dFd4bE;padding-top:5px;padding-bottom:5px}
 div.weiboUser a{padding-left:5px;}
 div.weiboContent div{margin:5px 10px 5px 10px;}

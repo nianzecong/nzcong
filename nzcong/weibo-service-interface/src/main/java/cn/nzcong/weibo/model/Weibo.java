@@ -20,6 +20,10 @@ public class Weibo implements Serializable {
 	private int commentsCount; // 评论数
 	private User user;
 
+	public String getReweiboId(){
+		return retweetedStatus == null ? null : retweetedStatus.getWeiboid();
+	}
+	
 	public String getCreatedat() {
 		return createdat;
 	}
