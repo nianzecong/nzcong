@@ -20,6 +20,7 @@ import cn.nzcong.utils.AppConfig;
 import cn.nzcong.weibo.exception.WeiboAuthException;
 import cn.nzcong.weibo.model.Weibo;
 import cn.nzcong.weibo.service.WeiboService;
+import cn.nzcong.weiboservice.dao.WeiboDao;
 
 @Controller
 @RequestMapping(value = "/*")
@@ -33,6 +34,8 @@ public class WeiboController {
 
 	@Autowired
 	private WeiboService weiboService;
+	@Autowired
+	private WeiboDao weiboDao;
 
 	@RequestMapping(value = "/timeline")
 	public String timeline(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
@@ -71,8 +74,13 @@ public class WeiboController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			weiboList = weiboService.getTimeLine(getToken());
+			for(Weibo weibo : weiboList){
+				if(weiboDao.getWeibo(weibo.getWeiboid()) == null){
+					weiboDao.addWeibo(weibo);
+				}
+			}
 		} catch (WeiboAuthException e) {
-			//TODO redirect
+			log.error("getTimeLine - error : " + e, e);
 		}
 		map.put("weiboList", weiboList);
 		return map;
