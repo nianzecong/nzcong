@@ -32,7 +32,6 @@
 		<common-httpclient.version>3.1</common-httpclient.version>
 		<httpclient.version>4.3.2</httpclient.version>
 		<dom4j.version>1.6.1</dom4j.version>
-		<json-lib.version>2.3</json-lib.version>
 
 		<mybatis.version>3.2.7</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
@@ -146,12 +145,7 @@
 				<artifactId>dom4j</artifactId>
 				<version>${dom4j.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>net.sf.json-lib</groupId>
-				<artifactId>json-lib</artifactId>
-				<version>${json-lib.version}</version>
-				<classifier>jdk15</classifier>
-			</dependency>
+
 			<!-- MYBATIS begin -->
 			<dependency>
 				<groupId>org.mybatis</groupId>
