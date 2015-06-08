@@ -6,6 +6,10 @@ public class Weibo implements Serializable {
 
 	private static final long serialVersionUID = -8795691786466526420L;
 
+	public String getReweiboId(){
+		return retweetedStatus == null ? null : retweetedStatus.getWeiboid();
+	}
+	
 	private String createdat; // status创建时间
 	private String weiboid; // status id
 	private String mid; // 微博MID
@@ -18,12 +22,25 @@ public class Weibo implements Serializable {
 	private double longitude = -1; // 经度
 	private int repostsCount; // 转发数
 	private int commentsCount; // 评论数
-	private User user;
-
-	public String getReweiboId(){
-		return retweetedStatus == null ? null : retweetedStatus.getWeiboid();
-	}
+	private String userscreenname;
+	private String userid;
 	
+	public String getUserscreenname() {
+		return userscreenname;
+	}
+
+	public void setUserscreenname(String userscreenname) {
+		this.userscreenname = userscreenname;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
 	public String getCreatedat() {
 		return createdat;
 	}
@@ -120,17 +137,9 @@ public class Weibo implements Serializable {
 		this.commentsCount = commentsCount;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	@Override
 	public String toString() {
-		return "Weibo = {createdat:" + createdat + ", weiboid:" + weiboid + ", mid:" + mid + ", text:" + text + ", thumbnailPic:" + thumbnailPic + ", bmiddlePic:" + bmiddlePic + ", originalPic:" + originalPic + ", retweetedStatus:" + retweetedStatus + ", latitude:" + latitude + ", longitude:" + longitude + ", repostsCount:" + repostsCount + ", commentsCount:" + commentsCount + ", user:" + user + "}";
+		return "Weibo = {createdat:" + createdat + ", weiboid:" + weiboid + ", mid:" + mid + ", text:" + text + ", thumbnailPic:" + thumbnailPic + ", bmiddlePic:" + bmiddlePic + ", originalPic:" + originalPic + ", retweetedStatus:" + retweetedStatus + ", latitude:" + latitude + ", longitude:" + longitude + ", repostsCount:" + repostsCount + ", commentsCount:" + commentsCount + ", userscreenname:" + userscreenname + ", userid:" + userid + "}";
 	}
 
 

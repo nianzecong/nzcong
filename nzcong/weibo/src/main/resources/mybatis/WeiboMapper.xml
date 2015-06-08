@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>     
+<!DOCTYPE mapper PUBLIC 
+"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.nzcong.weiboservice.dao.WeiboDao">
+	<sql id="select">
+		SELECT *
+	</sql>
+	<!-- 用户添加 -->
+	<insert id="addWeibo" parameterType="cn.nzcong.weibo.model.Weibo">
+		INSERT INTO weibo(
+			weiboid, mid, createdat, text, thumbnailPic,
+			bmiddlePic, originalPic, reweiboId, latitude, longitude,
+			repostsCount, commentsCount, userid, userscreenname, updatetime)
+		VALUES(
+			'${weiboid}', '${mid}', '${createdat}', '${text}', '${thumbnailPic}',
+			'${bmiddlePic}', '${originalPic}', '${reweiboId}', '${latitude}', '${longitude}',
+			'${repostsCount}', '${commentsCount}', '${userid}', '${userscreenname}', now()
+		)
+	</insert>
+
+	<select id="getWeibo" parameterType="String"
+		resultType="cn.nzcong.weibo.model.Weibo">
+		<include refid="select" />
+		FROM weibo
+		WHERE weiboid = #{id}
+	</select>
+	
+	<select id="getWeiboByDate" parameterType="map"
+		resultType="cn.nzcong.weibo.model.Weibo">
+		<include refid="select" />
+		FROM weibo
+		WHERE updatetime = #{date}
+	</select>
+
+</mapper>

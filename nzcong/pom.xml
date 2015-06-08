@@ -9,13 +9,13 @@
 	<modules>
 		<module>weibo-service</module>
 		<module>weibo-service-interface</module>
-		<module>weibo-picker</module>
+		<module>weibo</module>
 	</modules>
 
 	<properties>
 		<weibo-service.version>0.0.1</weibo-service.version>
 		<weibo-service-interface>0.0.1</weibo-service-interface>
-		<weibo-picker.version>0.0.1</weibo-picker.version>
+		<weibo.version>0.0.1</weibo.version>
 
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<jackson.version>1.9.11</jackson.version>

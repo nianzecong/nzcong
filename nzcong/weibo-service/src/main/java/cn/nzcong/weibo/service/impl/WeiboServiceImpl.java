@@ -93,7 +93,8 @@ public class WeiboServiceImpl implements WeiboService {
 		vo.setRetweetedStatus(convert(s.getRetweetedStatus()));
 		vo.setText(s.getText());
 		vo.setThumbnailPic(s.getThumbnailPic());
-		vo.setUser(convert(s.getUser()));
+		vo.setUserid(s.getUser().getId());
+		vo.setUserscreenname(s.getUser().getScreenName());
 		return vo;
 	}
 
