@@ -34,7 +34,10 @@ function initTimeLine() {
 				var m = (text + " ").match(/http:\/\/.+?(?=[\s，。,$\u4e00-\u9fa5])/g);
 				for (var j = 0 ; m && j < m.length ; j++ ){
 				     var link = m[j];
-				     text = text.replace(link , "<a class=\"link\" href=\"" + link + "\" title=\"" + link + "\" target=\"blank\">LINK</a>" );
+				     // 提取域名，js不支持(?<=exp)，先做处理：替换掉http:// 拼接“.”，并替换掉“..”；再匹配"/"前面的 .xxx.xxx，下一行切去开头的“.”
+				     var mlink = ("." + m[j].replace("http://", "").replace("..", ".")).match(/(\.\w+?\.\w+?)(?=\/.*)/g);
+				     var domain = mlink && mlink[0] ? mlink[0].substr(1) : "LINK";// 识别不到的显示“LINK” = =
+				     text = text.replace(link , "<a class=\"link\" href=\"" + link + "\" title=\"" + link + "\" target=\"blank\">" + domain + "</a>" );
 				}
 				// 替换话题
 				var mhuati = (text + " ").match(/#(\S+?)#/g);
@@ -43,7 +46,7 @@ function initTimeLine() {
 					text = text.replace(huati, "<a class=\"huati\" href=\"http://huati.weibo.com/k/" + huati.replace(/#/g, "") + "\" title=\"" + huati + "\" target=\"blank\">" + huati + "</a>");
 				}
 				// 替换艾特
-				var mat = (text + " ").match(/@(\S{2,20})(?=[\s，。,])/g);
+				var mat = (text + " ").match(/@([_0-9a-zA-Z\u4e00-\u9fa5]{2,10})(?=[^0-9a-zA-Z\u4e00-\u9fa5])/g);
 				for(var j = 0 ; mat && j < mat.length ; j++){
 					var at = mat[j];
 					text = text.replace(at, "<a class=\"at\" href=\"http://weibo.com/n/" + at.replace("@","") + "\" title=\"" + at.replace("@","") + "\" target=\"blank\">" + at + "</a>");
@@ -56,10 +59,9 @@ function initTimeLine() {
 				listStr += "<div class=\"view\">";
 				listStr += "<a class=\"link\" style=\"float:right\" href=\"javascript:void(0)\" target=\"blank\">点击查看原图</a><br/>";
 				listStr += "<img src=\"\"/></div>";
-				if(item.thumbnailPic){
-					listStr += "<span><img src=\"" + item.thumbnailPic + "\"/></span>";
-					listStr += "<span><img src=\"" + item.thumbnailPic + "\"/></span>";
-					
+				var pics = item.thumbnailPic ? item.thumbnailPic.split(";;") : [];
+				for(var k = 0 ; k < pics.length ; k++){
+					listStr += "<span><img src=\"" + pics[k] + "\"/></span>";
 				}
 				listStr += "</div>";
 				listStr += "<div class=\"weiboFunction\">";

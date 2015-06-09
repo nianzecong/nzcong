@@ -3,6 +3,7 @@ package cn.nzcong.weibo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -92,7 +93,11 @@ public class WeiboServiceImpl implements WeiboService {
 		vo.setRepostsCount(s.getRepostsCount());
 		vo.setRetweetedStatus(convert(s.getRetweetedStatus()));
 		vo.setText(s.getText());
-		vo.setThumbnailPic(s.getThumbnailPic());
+		String pics = "";
+		for(String pic : s.getPic_urls()){
+			pics += ";;" + pic;
+		}
+		vo.setThumbnailPic(StringUtils.isBlank(pics)? "" : pics.substring(2));
 		vo.setUserid(s.getUser().getId());
 		vo.setUserscreenname(s.getUser().getScreenName());
 		return vo;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.nzcong.weibo.weibo4j.model.Source;
 import cn.nzcong.weibo.weibo4j.http.Response;
 import cn.nzcong.weibo.weibo4j.org.json.JSONArray;
 import cn.nzcong.weibo.weibo4j.org.json.JSONException;
@@ -26,6 +25,7 @@ public class Status extends WeiboResponse {
 	private long inReplyToStatusId;                      //回复ID
 	private long inReplyToUserId;                        //回复人ID
 	private String inReplyToScreenName;                  //回复人昵称
+	private List<String> pic_urls = new ArrayList<String>();
 	private String thumbnailPic;                         //微博内容中的图片的缩略地址
 	private String bmiddlePic;                           //中型图片
 	private String originalPic;                          //原始图片
@@ -63,6 +63,9 @@ public class Status extends WeiboResponse {
 			inReplyToScreenName=json.getString("in_reply_toS_screenName");
 			favorited = getBoolean("favorited", json);
 			truncated = getBoolean("truncated", json);
+			for(int i = 0 ; i < json.getJSONArray("pic_urls").length() ; i++){
+				pic_urls.add(json.getJSONArray("pic_urls").getJSONObject(i).getString("thumbnail_pic")); 
+			}
 			thumbnailPic = json.getString("thumbnail_pic");
 			bmiddlePic = json.getString("bmiddle_pic");
 			originalPic = json.getString("original_pic");
@@ -87,6 +90,12 @@ public class Status extends WeiboResponse {
 		}
 	}
 
+	public List<String> getPic_urls() {
+		return pic_urls;
+	}
+	public void setPic_urls(List<String> pic_urls) {
+		this.pic_urls = pic_urls;
+	}
 	private void getGeoInfo(String geo) {
 		StringBuffer value= new StringBuffer();
 		for(char c:geo.toCharArray()){
