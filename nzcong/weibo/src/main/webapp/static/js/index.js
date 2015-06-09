@@ -46,22 +46,63 @@ function initTimeLine() {
 				var mat = (text + " ").match(/@(\S{2,20})(?=[\s，。,])/g);
 				for(var j = 0 ; mat && j < mat.length ; j++){
 					var at = mat[j];
-					text = text.replace(at, "<a class=\"huati\" href=\"http://weibo.com/n/" + at.replace("@","") + "\" title=\"" + at.replace("@","") + "\" target=\"blank\">" + at + "</a>");
+					text = text.replace(at, "<a class=\"at\" href=\"http://weibo.com/n/" + at.replace("@","") + "\" title=\"" + at.replace("@","") + "\" target=\"blank\">" + at + "</a>");
 				}
-				listStr += "<div class=\"weiboItem\">";
+				listStr += "<div class=\"weiboItem\" id=\"" + item.weiboid + "\" style=\"display:none\">";
 				listStr += "<div class=\"weiboUser\"><a href=\"http://weibo.com/" + item.userid + "\">@" + item.userscreenname + "</a></div>";
 				listStr += "<div class=\"weiboContent\">";
 				listStr += "<div>" + text + "</div>";
 				listStr += "</div><div class=\"weiboImages\">";
-				if(item.thumbnailPic)
-					listStr += "<img src=\"" + item.thumbnailPic + "\"/>";
+				listStr += "<div class=\"view\">";
+				listStr += "<a class=\"link\" style=\"float:right\" href=\"javascript:void(0)\" target=\"blank\">点击查看原图</a><br/>";
+				listStr += "<img src=\"\"/></div>";
+				if(item.thumbnailPic){
+					listStr += "<span><img src=\"" + item.thumbnailPic + "\"/></span>";
+					listStr += "<span><img src=\"" + item.thumbnailPic + "\"/></span>";
+					
+				}
 				listStr += "</div>";
 				listStr += "<div class=\"weiboFunction\">";
 				listStr += "<span><a class=\"link\" href=\"javascript:void(0)\">转" + item.repostsCount + "</a>";
 				listStr += "<a class=\"link\" href=\"javascript:void(0)\">评" + item.commentsCount + "</a></span>";
 				listStr += "</div></div>";
 				$("div.weibolist").html($("div.weibolist").html() + listStr);
-			}
+				$("#" + item.weiboid).show();
+				$("#" + item.weiboid + " .weiboImages").find("span img").each(function(){
+					var $this = $(this);
+					if(($this[0].width * 2) < $this[0].height){
+						$this.attr("src", item.bmiddlePic);
+					}
+//					if($(this)[0].width > $(this)[0].height){
+//						$(this).height($(this)[0].height);
+//					} else {
+//						$(this).width($(this)[0].width);
+//					}
+					$this.parent().height($this.width());
+				});
+			}// for weibo List
+			
+			$("div.weiboItem .weiboImages span").click(function(){
+				var $this = $(this);
+				// 处理view class
+				$this.parent().find("span").removeClass("view");
+				$this.addClass("view");
+				// 预览图地址获取
+				var $img = $this.find("img");
+				var bmiddle = $img.attr("src").replace("/thumbnail/", "/bmiddle/");
+				var original = $img.attr("src").replace("/thumbnail/", "/large/").replace("/bmiddle/", "/large/");
+				// 预览图地址设置、【查看原图】按钮地址
+				var $divView = $this.parent().find("div.view");
+				$divView.find("img").attr("src", bmiddle);
+				$divView.find("a.link").attr("href", original);
+				//alert($divView.find("a.link").attr("href"));
+				$divView.show();
+			});
+			$("div.weiboItem .weiboImages div.view").click(function(){
+				var $this = $(this);
+				$this.parent().find("span").removeClass("view");
+				$this.hide();
+			});
 		}
 	});
 }
