@@ -126,8 +126,8 @@ public class Timeline extends Weibo {
 		String s = "按原计划进行http://t.cn/R2R4VNL。在梅耶尔表http://t.cn/R2R4VNL 达了对于http://t.cn/R2R4VNL分拆计划的信心后，雅虎股价最高上涨2.3%。http://t.cn/R2R4VNL\",\"source_allowclick\":0,\"sou";
 		Timeline tl = new Timeline("2.00EaJgPD0Jdf5406d7fda56e7ilL6D");
 		try {
-			tl.getFriendsTimelineWithLongUrl();
-//			tl.replaceShortUrl(s);
+//			tl.getFriendsTimelineWithLongUrl();
+			tl.replaceShortUrl(s);
 		} catch (Exception e) {
 			// TODO Auto-generated catch blocks
 			e.printStackTrace();

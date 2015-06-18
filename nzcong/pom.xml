@@ -10,6 +10,7 @@
 		<module>weibo-service</module>
 		<module>weibo-service-interface</module>
 		<module>weibo</module>
+		<module>wechart</module>
 	</modules>
 
 	<properties>
@@ -18,11 +19,11 @@
 		<weibo.version>0.0.1</weibo.version>
 
 		<spring.version>4.0.2.RELEASE</spring.version>
-		
+
 		<jackson.version>1.9.11</jackson.version>
 		<fasterxml.jackson.version>2.3.1</fasterxml.jackson.version>
 		<json-lib.version>2.3</json-lib.version>
-		
+
 		<slf4j.version>1.7.6</slf4j.version>
 		<logback.version>1.1.1</logback.version>
 		<jstl.version>1.2</jstl.version>
@@ -43,6 +44,7 @@
 		<jstl.version>1.2</jstl.version>
 
 		<hessian.version>4.0.7</hessian.version>
+		<fastjson.version>1.2.5</fastjson.version>
 	</properties>
 
 	<dependencyManagement>
@@ -195,6 +197,11 @@
 				<version>${hessian.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
 
 		</dependencies>
 
