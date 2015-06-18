@@ -2,7 +2,7 @@ package cn.nzcong.wechart.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import cn.nzcong.wechart.exception.handler.MessageException;
+import cn.nzcong.wechart.exception.MessageException;
 
 public class VerifyUtils {
 
