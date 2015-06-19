@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 
 import cn.nzcong.wechart.exception.MessageException;
+import cn.nzcong.wechart.message.EventMessage;
 import cn.nzcong.wechart.message.ImageMessage;
 import cn.nzcong.wechart.message.LinkMessage;
 import cn.nzcong.wechart.message.LocationMessage;
@@ -31,6 +30,7 @@ public class MessageHandler {
 			put("text", TextMessage.class);
 			put("video", VideoMessage.class);
 			put("voice", VoiceMessage.class);
+			put("event", EventMessage.class);
 		}
 	};
 	

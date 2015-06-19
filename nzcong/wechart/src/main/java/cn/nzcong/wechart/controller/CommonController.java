@@ -32,7 +32,7 @@ import cn.nzcong.wechart.utils.SecurityUtils;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
-@RequestMapping(value = "/common")
+@RequestMapping(value = "/*")
 public class CommonController {
 
 	private static Logger log = LoggerFactory.getLogger(CommonController.class);
@@ -40,7 +40,7 @@ public class CommonController {
 	@Autowired
 	MessageService messageServcie;
 	
-	@RequestMapping(value = "/config",method=RequestMethod.GET )
+	@RequestMapping(value = "/gateway",method=RequestMethod.GET )
 	public @ResponseBody
 	String config(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		log.debug("config start - " + JSONObject.toJSONStringWithDateFormat(request.getParameterMap(), "yyyy-MM-dd"));
@@ -62,7 +62,7 @@ public class CommonController {
 		return "error";
 	}
 	
-	@RequestMapping(value = "/config",method=RequestMethod.POST )
+	@RequestMapping(value = "/gateway",method=RequestMethod.POST )
 	public @ResponseBody
 	String recieveMessage(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		String messageXml = "";
@@ -91,7 +91,7 @@ public class CommonController {
 			} else if(msg instanceof VideoMessage){
 				
 			} else if(msg instanceof VoiceMessage){
-				
+				resp = messageServcie.processVoiceMsg((VoiceMessage)msg);
 			}
 			respStr = resp == null ? respStr : resp.encode().asXML();
 		} catch (Exception e) {
