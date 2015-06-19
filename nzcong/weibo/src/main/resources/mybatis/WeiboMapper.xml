@@ -30,8 +30,14 @@
 	<select id="getWeiboByDate" parameterType="map"
 		resultType="cn.nzcong.weibo.model.Weibo">
 		<include refid="select" />
-		FROM weibo
-		WHERE updatetime = #{date}
+		FROM weibo w
+		WHERE updatetime = #{date} order by w.weiboid desc
+	</select>
+	
+	<select id="getDates" parameterType="map"
+		resultType="string">
+		SELECT distinct updatetime
+		FROM weibo limit 0,10
 	</select>
 
 </mapper>

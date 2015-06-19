@@ -1,3 +1,5 @@
+var domain = "http://" + window.location.host;
+
 $(function() {
 	var isIE = !-[ 1, ];
 	if (isIE) {
@@ -12,23 +14,42 @@ $(function() {
 });
 
 function initTimeLine() {
-	var u = "getTimeLine" + (flag && flag != "" ? "/" + flag : "");
+	var u = domain + "/weibo/getTimeLine" + (flag && flag != "" ? "/" + flag : "");
+	u += "/" + date;
 	$.ajax({
 		type : "post",
 		url : u,
-		param : {},
-		async : true,
+		param : {
+		},
+		//async : true,
 		success : function(data) {
 			$("div.weibolist").html("");
-			if (!data || !data.weiboList || data.weiboList < 1) {
+			if (!data || (!data.dateList && !data.weiboList)) {
 				alert("获取微博错误");
 				return;
 			}
+			if(flag && flag != ""){
+				var dates = data.dateList;
+				var dateText = "";
+				var dateStr = "";
+				for(var i = 0 ; i < dates.length ; i++){
+					dateText += "<a href=\"http://nzcong.cn/weibo/hot/" + dates[i] + "\">" + dates[i] + "</a><br/>";
+				}
+				dateStr += "<div class=\"weiboItem\" id=\"datelist\">";
+				dateStr += "<div class=\"weiboUser\"><a href=\"javascript:void(0)\">历史列表</a></div>";
+				dateStr += "<div class=\"weiboContent\">";
+				dateStr += "<div>" + dateText + "</div>";
+				dateStr += "</div><div class=\"weiboImages\"></div>";
+				dateStr += "<div class=\"weiboFunction\">";
+				dateStr += "<span></span>";
+				dateStr += "</div></div>";
+				$("div.weibolist").html(dateStr);
+			}
+			
 			var list = data.weiboList;
 			for ( var i = 0; i < list.length; i++) {
 				var listStr = "";
 				var item = list[i];
-				var user = item.user;
 				var text = item.text;
 				// 替换链接
 				var m = (text + " ").match(/http:\/\/.+?(?=[\s，。,$\u4e00-\u9fa5])/g);
@@ -68,7 +89,7 @@ function initTimeLine() {
 				listStr += "<span><a class=\"link\" href=\"javascript:void(0)\">转" + item.repostsCount + "</a>";
 				listStr += "<a class=\"link\" href=\"javascript:void(0)\">评" + item.commentsCount + "</a></span>";
 				listStr += "</div></div>";
-				$("div.weibolist").html($("div.weibolist").html() + listStr);
+				$("div.weibolist").append(listStr);
 				$("#" + item.weiboid).show();
 				$("#" + item.weiboid + " .weiboImages").find("span img").each(function(){
 					var $this = $(this);

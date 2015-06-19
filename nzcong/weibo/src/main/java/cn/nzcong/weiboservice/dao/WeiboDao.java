@@ -13,4 +13,10 @@ public interface WeiboDao {
 	
 	public abstract List<Weibo> getWeiboByDate(Map<String, Object> params);
 	
+	/**
+	 * 查找前10个日期
+	 * @return
+	 */
+	public abstract List<String> getDates();
+	
 }

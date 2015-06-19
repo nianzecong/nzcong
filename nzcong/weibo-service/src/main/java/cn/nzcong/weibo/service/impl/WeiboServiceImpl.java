@@ -120,8 +120,7 @@ public class WeiboServiceImpl implements WeiboService {
 	public static void main(String[] args) {
 		WeiboServiceImpl client = new WeiboServiceImpl();
 		try {
-			System.out.println(client.getauthUrl());
-			System.out.println(client.getNearByTimeLine("2.00EaJgPD0Jdf5406d7fda56e7ilL6D", "39.9", "116.4"));
+			System.out.println(client.getTimeLine("2.00xfBlHG0Jdf54338e42e36ahn95WD"));
 		} catch (WeiboAuthException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
