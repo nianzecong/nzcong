@@ -3,6 +3,7 @@ package cn.nzcong.wechart.message;
 import java.io.Serializable;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import cn.nzcong.wechart.utils.VerifyUtils;
@@ -31,7 +32,7 @@ public abstract class Message implements Serializable {
 			String _msgType =  rootElt.elementText("MsgType");
 			String _msgId =  rootElt.elementText("MsgId");
 			
-			VerifyUtils.verifyBlank(_toUser, _fromUser, _createTime, _msgType, _msgId);
+			VerifyUtils.verifyBlank(_toUser, _fromUser, _createTime, _msgType);
 			
 			this.toUser = _toUser;
 			this.fromUser = _fromUser;
@@ -42,6 +43,29 @@ public abstract class Message implements Serializable {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	protected Document getCommonEncode(){
+		Document resp = DocumentHelper.createDocument();
+		Element ToUserName = DocumentHelper.createElement("ToUserName");
+		Element FromUserName = DocumentHelper.createElement("FromUserName");
+		Element CreateTime = DocumentHelper.createElement("CreateTime");
+		Element MsgType = DocumentHelper.createElement("MsgType");
+
+		ToUserName.setText(this.toUser);
+		FromUserName.setText(this.fromUser);
+		CreateTime.setText(String.valueOf(this.createTime));
+		MsgType.setText(this.getMsgType());
+		
+		Element root = DocumentHelper.createElement("xml");
+		root.add(ToUserName);
+		root.add(FromUserName);
+		root.add(CreateTime);
+		root.add(MsgType);
+
+		resp.setRootElement(root);
+		
+		return resp;
 	}
 
 	

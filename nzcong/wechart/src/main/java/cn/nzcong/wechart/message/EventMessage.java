@@ -1,77 +1,122 @@
 package cn.nzcong.wechart.message;
 
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-public class EventMessage extends Message{
-	
+import cn.nzcong.wechart.exception.MessageException;
+
+public class EventMessage extends Message {
+
 	private static final long serialVersionUID = -1617262303859861785L;
-	
-	private String content;
-	
-	public EventMessage(){
-		
+
+	private String event;
+	private CommonMsg eventData;
+
+	public EventMessage() {
+
 	}
-	
-	public EventMessage(Document document){
+
+	public EventMessage(Document document) throws MessageException {
 		super(document);
 		Element root = document.getRootElement();
-		this.content = root.elementText("Content");
+		this.event = root.elementText("Event");
+		this.eventData = CommonMsg.decode(event, document);
 	}
 
-	public Document encode(){
-		Document resp = DocumentHelper.createDocument();
-		Element ToUserName = DocumentHelper.createElement("ToUserName");
-		Element FromUserName = DocumentHelper.createElement("FromUserName");
-		Element CreateTime = DocumentHelper.createElement("CreateTime");
-		Element MsgType = DocumentHelper.createElement("MsgType");
-		Element Content = DocumentHelper.createElement("Content");
+	public Document encode() {
+		Document resp = super.getCommonEncode();
+		Element Event = DocumentHelper.createElement("Event");
+		Event.setText(this.event);
 
-		ToUserName.setText(this.toUser);
-		FromUserName.setText(this.fromUser);
-		CreateTime.setText(String.valueOf(this.createTime));
-		MsgType.setText(this.getMsgType());
-		Content.setText(this.content);
-		
-		Element root = DocumentHelper.createElement("xml");
-		root.add(ToUserName);
-		root.add(FromUserName);
-		root.add(CreateTime);
-		root.add(MsgType);
-		root.add(Content);
+		Element root = resp.getRootElement();
+		root.add(Event);
 
-		resp.setRootElement(root);
-		
 		return resp;
 	}
-	
-	
-	public String getContent() {
-		return content;
+
+	/**
+	 * getters & setters
+	 */
+	public String getEvent() {
+		return event;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setEvent(String event) {
+		this.event = event;
+	}
+
+	public CommonMsg getEventData() {
+		return eventData;
+	}
+
+	public void setEventData(CommonMsg eventData) {
+		this.eventData = eventData;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("{");
-		if (content != null)
-			builder.append("content:").append(content).append(", ");
-		if (msgId != null)
-			builder.append("msgId:").append(msgId).append(", ");
-		if (toUser != null)
-			builder.append("toUser:").append(toUser).append(", ");
-		if (fromUser != null)
-			builder.append("fromUser:").append(fromUser).append(", ");
-		builder.append("createTime:").append(createTime).append(", ");
-		if (msgType != null)
-			builder.append("msgType:").append(msgType);
-		builder.append("}");
-		return builder.toString();
+		return "{event:" + event + ", eventData:" + eventData + ", msgId:" + msgId + ", toUser:" + toUser + ", fromUser:" + fromUser + ", createTime:" + createTime + ", msgType:" + msgType + "}";
 	}
-	
+
+	/**
+	 * 订阅消息数据
+	 */
+	public static class SubscribeMsg extends CommonMsg {
+		public String event;
+
+		public SubscribeMsg(Document document) {
+			super(document);
+			this.event = document.getRootElement().elementText("Event");
+		}
+	}
+	/**
+	 * 订阅消息数据
+	 */
+	public static class UnSubscribeMsg extends CommonMsg {
+		public String event;
+		
+		public UnSubscribeMsg(Document document) {
+			super(document);
+			this.event = document.getRootElement().elementText("Event");
+		}
+	}
+
+	/**
+	 * 普通消息及处理器
+	 */
+	private abstract static class CommonMsg {
+		public static final Map<String, Class> eventMap = new HashMap<String, Class>() {
+			private static final long serialVersionUID = 3487538497008632559L;
+			{
+				put("subscribe", SubscribeMsg.class);
+				put("unsubscribe", UnSubscribeMsg.class);
+			}
+		};
+ 
+		public CommonMsg(Document document) {
+		}
+
+		public static CommonMsg decode(String eventType, Document parentDocument) throws MessageException {
+			CommonMsg msg;
+			Constructor constructor;
+			try {
+				Class clazz = eventMap.get(eventType);
+				if(clazz == null){
+					return null;
+				}
+				constructor = clazz.getDeclaredConstructor(new Class[] { Document.class });
+				constructor.setAccessible(true);
+				msg = ((CommonMsg) constructor.newInstance(new Object[] { parentDocument }));
+			} catch (Exception e) {
+				throw new MessageException("Message decode error", e);
+			}
+			return msg;
+		}
+	}
+
 }

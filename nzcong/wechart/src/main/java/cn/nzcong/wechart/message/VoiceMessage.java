@@ -1,6 +1,7 @@
 package cn.nzcong.wechart.message;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 public class VoiceMessage extends Message{
@@ -11,12 +12,33 @@ public class VoiceMessage extends Message{
 	private String format;// 语音格式：amr 
 	private String recognition;// 语音识别结果，UTF8编码 
 	
+	public VoiceMessage(){
+		
+	}
+	
 	public VoiceMessage(Document document){
 		super(document);
 		Element root = document.getRootElement();
 		this.mediaId = root.elementText("MediaId");
 		this.format = root.elementText("Format");
 		this.recognition = root.elementText("Recognition");
+	}
+
+	@Override
+	public Document encode() {
+		Document resp = super.getCommonEncode();
+		Element MediaId = DocumentHelper.createElement("MediaId");
+		Element Recognition = DocumentHelper.createElement("Recognition");
+		Element Format = DocumentHelper.createElement("Format");
+		MediaId.setText(this.mediaId);
+		Recognition.setText(this.recognition);
+		Format.setText(this.format);
+		
+		Element root = resp.getRootElement();
+		root.add(MediaId);
+		root.add(Recognition);
+		root.add(Format);
+		return resp;
 	}
 
 	public String getMediaId() {
@@ -48,12 +70,11 @@ public class VoiceMessage extends Message{
 		this.recognition = recognition;
 	}
 
-
 	@Override
-	public Document encode() {
-		
-		return null;
+	public String toString() {
+		return "{mediaId:" + mediaId + ", format:" + format + ", recognition:" + recognition + ", msgId:" + msgId + ", toUser:" + toUser + ", fromUser:" + fromUser + ", createTime:" + createTime + ", msgType:" + msgType + "}";
 	}
+
 
 	
 }

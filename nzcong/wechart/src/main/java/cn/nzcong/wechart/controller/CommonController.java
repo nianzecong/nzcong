@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.nzcong.wechart.message.EventMessage;
 import cn.nzcong.wechart.message.ImageMessage;
 import cn.nzcong.wechart.message.LinkMessage;
 import cn.nzcong.wechart.message.LocationMessage;
@@ -79,7 +80,7 @@ public class CommonController {
 			log.debug(msg.getClass().getName() + " : " + JSONObject.toJSONString(msg));
 			Message resp = null;
 			if(msg instanceof TextMessage){
-				resp = messageServcie.processTextMsg((TextMessage)msg);
+				resp = messageServcie.processMsg((TextMessage)msg);
 			} else if(msg instanceof ImageMessage){
 				
 			} else if(msg instanceof LinkMessage){
@@ -91,7 +92,9 @@ public class CommonController {
 			} else if(msg instanceof VideoMessage){
 				
 			} else if(msg instanceof VoiceMessage){
-				resp = messageServcie.processVoiceMsg((VoiceMessage)msg);
+				resp = messageServcie.processMsg((VoiceMessage)msg);
+			} else if(msg instanceof EventMessage){
+				resp = messageServcie.processMsg((EventMessage)msg);
 			}
 			respStr = resp == null ? respStr : resp.encode().asXML();
 		} catch (Exception e) {

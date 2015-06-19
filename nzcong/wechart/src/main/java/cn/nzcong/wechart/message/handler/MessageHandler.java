@@ -41,7 +41,7 @@ public class MessageHandler {
 		try {
 			constructor = MessageHandler.msgTypeMap.get(messageType).getDeclaredConstructor(new Class[] { Document.class});
 			constructor.setAccessible(true);
-			message = ((Message) constructor.newInstance(new Object[] { document }));
+			message = (Message) constructor.newInstance(new Object[] { document });
 		} catch (Exception e) {
 			throw new MessageException("Message decode error", e);
 		}

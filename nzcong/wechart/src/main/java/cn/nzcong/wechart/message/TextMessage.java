@@ -21,28 +21,12 @@ public class TextMessage extends Message{
 	}
 
 	public Document encode(){
-		Document resp = DocumentHelper.createDocument();
-		Element ToUserName = DocumentHelper.createElement("ToUserName");
-		Element FromUserName = DocumentHelper.createElement("FromUserName");
-		Element CreateTime = DocumentHelper.createElement("CreateTime");
-		Element MsgType = DocumentHelper.createElement("MsgType");
-		Element Content = DocumentHelper.createElement("Content");
-
-		ToUserName.setText(this.toUser);
-		FromUserName.setText(this.fromUser);
-		CreateTime.setText(String.valueOf(this.createTime));
-		MsgType.setText(this.getMsgType());
-		Content.setText(this.content);
+		Document resp = super.getCommonEncode();
+		Element Event = DocumentHelper.createElement("Content");
+		Event.setText(this.content);
 		
-		Element root = DocumentHelper.createElement("xml");
-		root.add(ToUserName);
-		root.add(FromUserName);
-		root.add(CreateTime);
-		root.add(MsgType);
-		root.add(Content);
-
-		resp.setRootElement(root);
-		
+		Element root = resp.getRootElement();
+		root.add(Event);
 		return resp;
 	}
 	
