@@ -33,13 +33,13 @@ public class TimerServiceImpl implements TimerService{
 	}
 
 	
-	@Scheduled(cron="0 0/3 * * * ? ")   //每4min执行一次 
+	@Scheduled(cron="0 0/4 * * * ? ")   //每4min执行一次 
 	@Override
 	public void checkTimeLine() {
 		try {
 			// 随机跳过
 			int random = new Random().nextInt(100);
-			log.debug("checkTimeLine - random ===========> " + random + " <========================");
+			log.debug("checkTimeLine - random : " + random);
 			if(random > 20){ // 4/5的几率跳过
 				return;
 			}
@@ -47,7 +47,7 @@ public class TimerServiceImpl implements TimerService{
 			List<Weibo> weiboList = weiboService.getTimeLine(getToken());
 			log.debug("checkTimeLine : " + weiboList.size() +  " ... ");
 			for(Weibo weibo : weiboList){
-				if(weibo.getRepostsCount() > 1000 && weiboDao.getWeibo(weibo.getWeiboid()) == null){
+				if(weibo.getRepostsCount() > 500 && weiboDao.getWeibo(weibo.getWeiboid()) == null){
 					weiboDao.addWeibo(weibo);
 					log.debug("checkTimeLine - insert - " + weibo.getWeiboid());
 				}

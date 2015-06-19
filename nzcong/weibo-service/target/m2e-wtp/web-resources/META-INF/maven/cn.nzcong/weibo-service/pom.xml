@@ -11,17 +11,17 @@
 	<version>${weibo-service.version}</version>
 
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>cn.nzcong</groupId>
 			<artifactId>weibo-service-interface</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-		
+
 		<!-- LOGGING begin -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -72,6 +72,13 @@
 		<dependency>
 			<groupId>com.caucho</groupId>
 			<artifactId>hessian</artifactId>
+		</dependency>
+
+		<!-- json start -->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<classifier>jdk15</classifier>
 		</dependency>
 
 	</dependencies>

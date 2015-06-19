@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>  
 <configuration>
-	<property name="app_name" value="springmvc-archetype" />
+	<property name="app_name" value="weibo-service" />
 	<property name="log_path" value="\\logs\\nzcong\\weibo-service\\" />
 
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">  
@@ -20,7 +20,7 @@
     
     <logger name="cn.nzcong" level="DEGUG" />
     
-    <root level="info">
+    <root level="debug">
     	<appender-ref ref="stdout" />
     	<appender-ref ref="rollingFile" /> 
 	</root>

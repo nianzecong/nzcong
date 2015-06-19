@@ -47,11 +47,18 @@ public class ShortUrl extends Weibo {
 	 * @see http://open.weibo.com/wiki/2/short_url/expand
 	 * @since JDK 1.5
 	 */
-	public JSONObject shortToLongUrl(String url_short) throws WeiboException {
+	public JSONObject shortToLongUrl(String[] url_short) throws WeiboException {
+		if(url_short == null || url_short.length < 1){
+			return null;
+		}
+		PostParameter[] urlParam = new PostParameter[url_short.length];
+		for(int i = 0 ; i < url_short.length ; i++){
+			urlParam[i] = new PostParameter("url_short",
+					url_short[i]);
+		}
 		return client
 				.get(WeiboConfig.getValue("baseURL") + "short_url/expand.json",
-						new PostParameter[] { new PostParameter("url_short",
-								url_short) }, access_token).asJSONObject();
+						urlParam, access_token).asJSONObject();
 	}
 
 	/**

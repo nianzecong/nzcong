@@ -3,6 +3,8 @@ package cn.nzcong.weibo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +51,8 @@ public class WeiboServiceImpl implements WeiboService {
 		Timeline tm = new Timeline(token);
 		List<cn.nzcong.weibo.model.Weibo> statusList = new ArrayList<cn.nzcong.weibo.model.Weibo>();
 		try {
-			StatusWapper status = tm.getFriendsTimeline();
+//			StatusWapper status = tm.getFriendsTimeline();
+			StatusWapper status = tm.getFriendsTimelineWithLongUrl();
 			for (Status s : status.getStatuses()) {
 				cn.nzcong.weibo.model.Weibo temps = convert(s.getRetweetedStatus() == null ? s : s.getRetweetedStatus());
 				statusList.add(temps);
@@ -120,7 +123,8 @@ public class WeiboServiceImpl implements WeiboService {
 	public static void main(String[] args) {
 		WeiboServiceImpl client = new WeiboServiceImpl();
 		try {
-			System.out.println(client.getTimeLine("2.00xfBlHG0Jdf54338e42e36ahn95WD"));
+			System.out.println(client.getauthUrl());
+			System.out.println(client.getNearByTimeLine("2.00EaJgPD0Jdf5406d7fda56e7ilL6D", "39.9", "116.4"));
 		} catch (WeiboAuthException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +57,6 @@ public class WeiboController {
 		return "weiboTimeline";
 	}
 	
-	@RequestMapping(value = "/hot/{date}")
-	public String dateHot(@PathVariable("date") String date, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		model.put("date", date);
-		model.put("flag", "hot");
-		return "weiboTimeline";
-	}
-	
 	@RequestMapping(value = "/reload")
 	public @ResponseBody
 	String reload(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
@@ -86,35 +78,25 @@ public class WeiboController {
 		return map;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getTimeLine/{flag}")
 	public @ResponseBody
 	Map getTimeLine(@PathVariable("flag") String flag, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return getTimeLine(flag, DateTimeUtils.getNowDateTimeStr(DateTimeUtils.DATE_PATTERN), request, response, model);
-	}
-
-	@RequestMapping(value = "/getTimeLine/{flag}/{date}")
-	public @ResponseBody
-	Map getTimeLine(@PathVariable("flag") String flag, @PathVariable("date") String date, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		List<Weibo> weiboList = null;
-		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> dateList = weiboDao.getDates();
 		try {
 			if("hot".equals(flag)){
 				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("date", date);
+				params.put("date", DateTimeUtils.getNowDateTimeStr(DateTimeUtils.DATE_PATTERN));
 				weiboList = weiboDao.getWeiboByDate(params);
 			}
 			//weiboList = weiboService.getTimeLine(getToken());
 		} catch (Exception e) {
 			log.error("getTimeLine - error : " + e, e);
 		}
-		map.put("dateList", dateList);
 		map.put("weiboList", weiboList);
 		return map;
 	}
-	
-	
 	
 
 }
