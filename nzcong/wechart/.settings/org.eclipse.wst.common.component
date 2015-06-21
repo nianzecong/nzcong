@@ -4,6 +4,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="robot-interface-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/robot-interface/robot-interface">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="wechart"/>
         <property name="java-output-path" value="/wechart/target/classes"/>
     </wb-module>

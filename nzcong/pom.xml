@@ -11,11 +11,16 @@
 		<module>weibo-service-interface</module>
 		<module>weibo</module>
 		<module>wechart</module>
+		<module>robot-service</module>
+		<module>robot-interface</module>
 	</modules>
 
 	<properties>
+		<robot-interface.version>0.0.1</robot-interface.version>
+		<robot-service.version>0.0.1</robot-service.version>
+		<wechart.version>0.0.1</wechart.version>
 		<weibo-service.version>0.0.1</weibo-service.version>
-		<weibo-service-interface>0.0.1</weibo-service-interface>
+		<weibo-service-interface.version>0.0.1</weibo-service-interface.version>
 		<weibo.version>0.0.1</weibo.version>
 
 		<spring.version>4.0.2.RELEASE</spring.version>
@@ -53,8 +58,13 @@
 
 			<dependency>
 				<groupId>cn.nzcong</groupId>
+				<artifactId>robot-interface</artifactId>
+				<version>${robot-interface.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.nzcong</groupId>
 				<artifactId>weibo-service-interface</artifactId>
-				<version>${weibo-service-interface}</version>
+				<version>${weibo-service-interface.version}</version>
 			</dependency>
 
 			<dependency>

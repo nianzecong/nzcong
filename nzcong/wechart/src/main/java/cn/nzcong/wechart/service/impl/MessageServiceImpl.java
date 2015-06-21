@@ -3,8 +3,13 @@ package cn.nzcong.wechart.service.impl;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.nzcong.robot.exception.RobotException;
+import cn.nzcong.robot.service.RobotService;
 import cn.nzcong.wechart.message.EventMessage;
 import cn.nzcong.wechart.message.Message;
 import cn.nzcong.wechart.message.TextMessage;
@@ -14,10 +19,21 @@ import cn.nzcong.wechart.service.MessageService;
 @Service
 public class MessageServiceImpl implements MessageService{
 
+	private static Logger log = LoggerFactory.getLogger(MessageServiceImpl.class);
+
+	@Autowired
+	private RobotService robotService;
+	
 	@Override
 	public Message processMsg(TextMessage msg) {
 		TextMessage respMsg = new TextMessage();
-		respMsg.setContent(msg.getContent());
+		try {
+			String content = robotService.chart(msg.getContent());
+			respMsg.setContent(replaceEnter(content));
+		} catch (RobotException e) {
+			log.error("processMsg - TEXT - chart error", e);
+			respMsg.setContent("矮油，聪哥(机器人)好像生病了，过一阵再来找我吧");
+		}
 		respMsg.setCreateTime(Integer.parseInt(String.valueOf(new Date().getTime() / 1000)));
 		respMsg.setFromUser(msg.getToUser());
 		respMsg.setMsgType(msg.getMsgType());
@@ -28,7 +44,12 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public Message processMsg(VoiceMessage msg) {
 		TextMessage respMsg = new TextMessage();
-		respMsg.setContent(StringUtils.isBlank(msg.getRecognition()) ? "你说什么？我没听清" : msg.getRecognition());
+		try {
+			respMsg.setContent(StringUtils.isBlank(msg.getRecognition()) ? "你说什么？我没听清" : replaceEnter(robotService.chart(msg.getRecognition())));
+		} catch (Exception e) {
+			log.error("processMsg - TEXT - chart error", e);
+			respMsg.setContent("矮油，聪哥(机器人)好像生病了，过一阵再来找我吧");
+		}
 		respMsg.setCreateTime(Integer.parseInt(String.valueOf(new Date().getTime() / 1000)));
 		respMsg.setFromUser(msg.getToUser());
 		respMsg.setMsgType("text");
@@ -55,5 +76,13 @@ public class MessageServiceImpl implements MessageService{
 		return respMsg;
 	}
 	
+	private String replaceEnter(String content){
+		return content.replaceAll("<br>", "\n");
+	}
 	
+	public static void main(String[] args) {
+		MessageServiceImpl s= new MessageServiceImpl();
+		System.out.println(s.replaceEnter("111<br>111"));
+		
+	}
 }
