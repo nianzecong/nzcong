@@ -13,6 +13,7 @@
 		<module>wechart</module>
 		<module>robot-service</module>
 		<module>robot-interface</module>
+		<module>blog</module>
 	</modules>
 
 	<properties>
