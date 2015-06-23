@@ -1,16 +1,16 @@
 package cn.nzcong.weiboservice.dao;
 
+import cn.nzcong.weibo.model.Weibo;
 import java.util.List;
 import java.util.Map;
 
-import cn.nzcong.weibo.model.Weibo;
+public abstract interface WeiboDao
+{
+  public abstract int addWeibo(Weibo paramWeibo);
 
-public interface WeiboDao {
+  public abstract Weibo getWeibo(String paramString);
 
-	public abstract int addWeibo(Weibo weibo);
-	
-	public abstract Weibo getWeibo(String id);
-	
-	public abstract List<Weibo> getWeiboByDate(Map<String, Object> params);
-	
+  public abstract List<Weibo> getWeiboByDate(Map<String, Object> paramMap);
+
+  public abstract List<String> getDates();
 }

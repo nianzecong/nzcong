@@ -10,10 +10,6 @@
 	<packaging>war</packaging>
 	
 	<dependencies>
-		<dependency>
-			<groupId>cn.nzcong</groupId>
-			<artifactId>weibo-service-interface</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

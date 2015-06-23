@@ -30,7 +30,7 @@ public class WeiboController {
 
 	private static Logger log = LoggerFactory.getLogger(WeiboController.class);
 
-	private String getToken(){
+	private String getToken() {
 		return AppConfig.getParameter("weibo.token");
 	}
 
@@ -41,28 +41,30 @@ public class WeiboController {
 	@Autowired
 	private TimerService timerService;
 
-	@RequestMapping(value = "/test")
-	public void timelinetest(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		timerService.checkTimeLine();
-	}
-	
 	@RequestMapping(value = "/timeline")
 	public String timeline(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "weiboTimeline";
 	}
-	
+
 	@RequestMapping(value = "/hot")
 	public String hot(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.put("flag", "hot");
 		return "weiboTimeline";
 	}
-	
+
+	@RequestMapping(value = "/hot/{date}")
+	public String dateHot(@PathVariable("date") String date, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("date", date);
+		model.put("flag", "hot");
+		return "weiboTimeline";
+	}
+
 	@RequestMapping(value = "/reload")
 	public @ResponseBody
 	String reload(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return String.valueOf(AppConfig.reload());
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getTimeLine")
 	public @ResponseBody
@@ -77,26 +79,34 @@ public class WeiboController {
 		map.put("weiboList", weiboList);
 		return map;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getTimeLine/{flag}")
 	public @ResponseBody
 	Map getTimeLine(@PathVariable("flag") String flag, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		String today = DateTimeUtils.getNowDateTimeStr(DateTimeUtils.DATE_PATTERN);
+		return getTimeLine(flag, today, request, response, model);
+	}
+
+	@RequestMapping(value = "/getTimeLine/{flag}/{date}")
+	@ResponseBody
+	public Map<String, Object> getTimeLine(@PathVariable("flag") String flag, @PathVariable("date") String date, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		List<Weibo> weiboList = null;
+
 		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> dateList = this.weiboDao.getDates();
 		try {
-			if("hot".equals(flag)){
+			if ("hot".equals(flag)) {
 				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("date", DateTimeUtils.getNowDateTimeStr(DateTimeUtils.DATE_PATTERN));
-				weiboList = weiboDao.getWeiboByDate(params);
+				params.put("date", date);
+				weiboList = this.weiboDao.getWeiboByDate(params);
 			}
-			//weiboList = weiboService.getTimeLine(getToken());
 		} catch (Exception e) {
 			log.error("getTimeLine - error : " + e, e);
 		}
+		map.put("dateList", dateList);
 		map.put("weiboList", weiboList);
 		return map;
 	}
-	
 
 }
