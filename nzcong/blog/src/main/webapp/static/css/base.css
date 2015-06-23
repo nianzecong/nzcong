@@ -28,20 +28,20 @@ div.container{
 	word-wrap:break-word;/*支持IE，chrome，FF*/
 }
 
-a.button-weibo span{background:url(../img/button.png) no-repeat 0px 0px;display:block;width:50px;height:50px;}
-a.button-weibo:hover span{background:url(../img/button.png) no-repeat -50px 0px;}
+a.button-weibo span{background:url(../images/button.png) no-repeat 0px 0px;display:block;width:50px;height:50px;}
+a.button-weibo:hover span{background:url(../images/button.png) no-repeat -50px 0px;}
 a.button-weibo.current{background:#dFd4bE;}
-a.button-weibo.current span{background:url(../img/button.png) no-repeat -100px 0px;}
+a.button-weibo.current span{background:url(../images/button.png) no-repeat -100px 0px;}
 
-a.button-git span{background:url(../img/button.png) no-repeat 0px -50px;display:block;width:50px;height:50px;}
-a.button-git:hover span{background:url(../img/button.png) no-repeat -50px -50px;}
+a.button-git span{background:url(../images/button.png) no-repeat 0px -50px;display:block;width:50px;height:50px;}
+a.button-git:hover span{background:url(../images/button.png) no-repeat -50px -50px;}
 a.button-git.current{background:#dFd4bE;}
-a.button-git.current span{background:url(../img/button.png) no-repeat -100px -50px;}
+a.button-git.current span{background:url(../images/button.png) no-repeat -100px -50px;}
 
-a.button-menu span{background:url(../img/button.png) no-repeat 0px -250px;display:block;width:50px;height:50px;}
-a.button-menu:hover span{background:url(../img/button.png) no-repeat -50px -250px;}
+a.button-menu span{background:url(../images/button.png) no-repeat 0px -250px;display:block;width:50px;height:50px;}
+a.button-menu:hover span{background:url(../images/button.png) no-repeat -50px -250px;}
 a.button-menu.current{background:#dFd4bE;}
-a.button-menu.current span{background:url(../img/button.png) no-repeat -100px -250px;}
+a.button-menu.current span{background:url(../images/button.png) no-repeat -100px -250px;}
 
 div.bottom{background: #FFF4DE;background-image:none;height:20px;display:block;width:100%;margin-right:auto;margin-left:auto;border-top:#dFd4bE 1px solid;}
 div.bottom div.container a,div.bottom .container span{color:#dFd4bE}
@@ -63,7 +63,20 @@ div.weiboFunction span.fl{color:#aFa48E;float:left;margin:5px;}
 div.weiboFunction span a{color:#aFa48E !important;float:left;margin:5px;}
 
 div.blogeditor {display:inline;width:48%;background:}
+
 div.blogeditor textarea{background: #bbb;}
+div.blogeditor textarea::-webkit-input-placeholder {color:#ddd;} /* WebKit browsers */
+div.blogeditor textarea:-moz-placeholder {color:#fff;} /* Mozilla Firefox 4 to 18 */
+div.blogeditor textarea::-moz-placeholder {color:#fff;} /* Mozilla Firefox 19+ */
+div.blogeditor textarea:-ms-input-placeholder {color:#fff;} /* Internet Explorer 10+ */
+
+div.blogeditor span.info{color:gray}
+div.blogeditor input.blogTitle{width:70%;height:22px;margin-bottom:3px}
+div.blogeditor select.blogCatagory{width:28%;height:28px;margin-bottom:3px}
+div.blogeditor input.button{display:inline-block;border:0px;height:30px;width:50px;color:#fff;cursor:pointer;}
+div.blogeditor input.ok{background: #02bb00;width:100px}
+div.blogeditor input.cancel{background: #f25561; width:70px}
+div.markdownReview{display:inline-block;width:47%;height:500px;margin:2%;overflow:hidden;overflow-y: auto;}
 
 a.button-menu{display:none !important;}
 
