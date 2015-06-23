@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.nzcong.config.service.ConfigService;
 import cn.nzcong.utils.AppConfig;
 import cn.nzcong.weibo.exception.WeiboAuthException;
 import cn.nzcong.weibo.model.Weibo;
@@ -29,18 +30,36 @@ import cn.nzcong.weiboservice.service.TimerService;
 public class WeiboController {
 
 	private static Logger log = LoggerFactory.getLogger(WeiboController.class);
-
-	private String getToken() {
-		return AppConfig.getParameter("weibo.token");
-	}
-
+	private static final String TOKEN_KEY = "weibo.admin.token";
+	
+	
 	@Autowired
 	private WeiboService weiboService;
 	@Autowired
 	private WeiboDao weiboDao;
 	@Autowired
 	private TimerService timerService;
-
+	@Autowired
+	private ConfigService configService;
+	
+	@RequestMapping(value = "/login")
+	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		model.put("OauthUrl", weiboService.getauthUrl());
+		return "weiboLogin";
+	}
+	
+	@RequestMapping(value = "/updateToken")
+	public String updateToken(String code, HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			String token = weiboService.getTockenByCode(code);
+			configService.setParameter(TOKEN_KEY, token);
+			model.put("message", "success");
+		} catch (WeiboAuthException e) {
+			model.put("message", "error");
+		}
+		return "weiboLogin";
+	}
+	
 	@RequestMapping(value = "/timeline")
 	public String timeline(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "weiboTimeline";
@@ -107,6 +126,11 @@ public class WeiboController {
 		map.put("dateList", dateList);
 		map.put("weiboList", weiboList);
 		return map;
+	}
+	
+
+	private String getToken() {
+		return configService.getParameter(TOKEN_KEY);
 	}
 
 }

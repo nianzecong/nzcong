@@ -3,8 +3,6 @@ package cn.nzcong.weibo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import cn.nzcong.utils.DateTimeUtils;
 import cn.nzcong.weibo.exception.WeiboAuthException;
 import cn.nzcong.weibo.model.User;
-import cn.nzcong.weibo.model.Weibo;
 import cn.nzcong.weibo.service.WeiboService;
 import cn.nzcong.weibo.weibo4j.Oauth;
 import cn.nzcong.weibo.weibo4j.Place;

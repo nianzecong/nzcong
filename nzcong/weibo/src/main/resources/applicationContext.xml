@@ -28,6 +28,11 @@
 		<property name="serviceUrl" value="${weiboServiceUrl}" />
 		<property name="serviceInterface" value="cn.nzcong.weibo.service.WeiboService" />
 	</bean>
+	<bean id="configService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${configServiceUrl}" />
+		<property name="serviceInterface" value="cn.nzcong.config.service.ConfigService" />
+	</bean>
 
 	<import resource="applicationContext_jdbc.xml" />
 

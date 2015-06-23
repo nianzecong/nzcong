@@ -8,6 +8,9 @@
         <dependent-module archiveName="weibo-service-interface-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/weibo-service-interface/weibo-service-interface">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="config-interface-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/config-interface/config-interface">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/weibo/target/classes"/>
         <property name="context-root" value="weibo"/>
     </wb-module>

@@ -17,6 +17,10 @@
 			<groupId>cn.nzcong</groupId>
 			<artifactId>weibo-service-interface</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>cn.nzcong</groupId>
+			<artifactId>config-interface</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

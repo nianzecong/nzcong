@@ -19,15 +19,6 @@
 		} else {
 			window.location.href = authUrl;
 		}
-		$.ajax({
-			type : "post",
-			url : "http://localhost:8080/weibo-picker/getTimeLine",
-			param : {},
-			async : true,
-			success : function(data) {
-				alert(data);
-			}
-		});
 	});
 </script>
 </head>

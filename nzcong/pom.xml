@@ -15,6 +15,7 @@
 		<module>robot-interface</module>
 		<module>blog</module>
 		<module>config</module>
+		<module>config-interface</module>
 	</modules>
 
 	<properties>
@@ -24,6 +25,7 @@
 		<weibo-service.version>0.0.1</weibo-service.version>
 		<weibo-service-interface.version>0.0.1</weibo-service-interface.version>
 		<weibo.version>0.0.1</weibo.version>
+		<config.version>0.0.1</config.version>
 
 		<spring.version>4.0.2.RELEASE</spring.version>
 
@@ -68,7 +70,11 @@
 				<artifactId>weibo-service-interface</artifactId>
 				<version>${weibo-service-interface.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>cn.nzcong</groupId>
+				<artifactId>config-interface</artifactId>
+				<version>${config.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
