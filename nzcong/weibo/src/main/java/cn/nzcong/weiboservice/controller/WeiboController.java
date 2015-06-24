@@ -130,7 +130,7 @@ public class WeiboController {
 	}
 	
 
-	private String getToken() {
+	public String getToken() {
 		return configService.getParameter(TOKEN_KEY);
 	}
 
