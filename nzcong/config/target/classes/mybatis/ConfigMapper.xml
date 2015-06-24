@@ -10,16 +10,14 @@
 		INSERT INTO config(
 		k, v)
 		VALUES(
-		'${key}', '${value}'
+		${key}, ${value}
 		)
 	</insert>
 
 	<update id="setParameter" parameterType="String">
 		UPDATE config
-		<set>
-			v = '#{value}'
-		</set>
-		WHERE k = '#{key}'
+		SET	v = #{value}
+		WHERE k = #{key}
 	</update>
 
 	<select id="getParameter" parameterType="String" resultType="String">

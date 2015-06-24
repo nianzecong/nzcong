@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!--Hessian 启动BeanNameMapping 映射功能,以httpRequest作为处理Adapter -->
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="defaultHandler" ref="httpRequestHandlerAdapter" />
+	</bean>
+
+	<!-- Hessian 方式以Http进行传递 -->
+	<bean id="httpRequestHandlerAdapter"
+		class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter" />
+
+	<bean name="/configService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="configServiceImpl" />
+		<property name="serviceInterface" value="cn.nzcong.config.service.ConfigService" />
+	</bean>
+
+</beans>

@@ -17,7 +17,11 @@ public class ConfigTest {
 	
 	@Test
 	public void getParameter(){
-		System.out.println("****** " + configService.getParameter("blog.editor.password"));
+		
+		System.out.println("****** " + configService.getParameter("weibo.admin.token"));
+		configService.setParameter("weibo.admin.token", "2.00EaJgPD0Jdf5406d7fda56e7ilL6D");
+		System.out.println("****** " + configService.getParameter("weibo.admin.token"));
+		
 	}
 	
 }

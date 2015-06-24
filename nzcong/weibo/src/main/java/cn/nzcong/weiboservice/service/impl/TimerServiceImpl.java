@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import cn.nzcong.config.service.ConfigService;
 import cn.nzcong.utils.AppConfig;
 import cn.nzcong.weibo.model.Weibo;
 import cn.nzcong.weibo.service.WeiboService;
@@ -22,16 +23,17 @@ import cn.nzcong.weiboservice.service.TimerService;
 @Service
 public class TimerServiceImpl implements TimerService{
 	private static Logger log = LoggerFactory.getLogger(TimerServiceImpl.class);
-
+	private static final String TOKEN_KEY = "weibo.admin.token";
 	@Autowired
 	private WeiboDao weiboDao;
 	@Autowired
 	private WeiboService weiboService;
+	@Autowired
+	private ConfigService configService;
 	
 	private String getToken(){
-		return AppConfig.getParameter("weibo.token");
+		return configService.getParameter("TOKEN_KEY");
 	}
-
 	
 	@Scheduled(cron="0 0/4 * * * ? ")   //每4min执行一次 
 	@Override

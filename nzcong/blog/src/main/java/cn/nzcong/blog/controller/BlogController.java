@@ -17,11 +17,12 @@ public class BlogController {
 	private static Logger log = LoggerFactory.getLogger(BlogController.class);
 
 	@RequestMapping(value = "/editor")
-	public String timeline(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String timeline(String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		
 		return "editor";
 	}
 
-	@RequestMapping(value = "/saveasdraft")
+	@RequestMapping(value = "/savedraft")
 	public @ResponseBody
 	String saveAsDraft(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		

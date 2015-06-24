@@ -37,7 +37,9 @@
 	<select id="getDates" parameterType="map"
 		resultType="string">
 		SELECT distinct updatetime
-		FROM weibo limit 0,10
+		FROM weibo 
+		order by updatetime desc 
+		limit 0,10 
 	</select>
 
 </mapper>

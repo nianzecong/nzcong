@@ -54,7 +54,8 @@ public class WeiboController {
 			String token = weiboService.getTockenByCode(code);
 			configService.setParameter(TOKEN_KEY, token);
 			model.put("message", "success");
-		} catch (WeiboAuthException e) {
+		} catch (Exception e) {
+			log.error("updateToken ERROR : " + e);
 			model.put("message", "error");
 		}
 		return "weiboLogin";

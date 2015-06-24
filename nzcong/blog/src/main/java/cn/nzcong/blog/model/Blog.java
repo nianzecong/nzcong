@@ -6,16 +6,15 @@ public class Blog implements Serializable{
 
 	private static final long serialVersionUID = 1798389238282131234L;
 	
-	private String id;
-	private String title;
-	private String text;
-	private String catagoryId;
+	private String id;// 文章ID
+	private String title;// 文章标题
+	private String text;// 文章内容markdown
+	private String catagoryId;// 文章分类
 	
-	private int type;
-	private int top;
+	private int type;// 0草稿，1已发布，2置顶，3隐藏
 	
-	private String updateTime;
-	private String addTime;
+	private String updateTime;// 修改时间
+	private String addTime;// 添加时间
 	public String getId() {
 		return id;
 	}
@@ -46,12 +45,6 @@ public class Blog implements Serializable{
 	public void setType(int type) {
 		this.type = type;
 	}
-	public int getTop() {
-		return top;
-	}
-	public void setTop(int top) {
-		this.top = top;
-	}
 	public String getUpdateTime() {
 		return updateTime;
 	}
@@ -65,7 +58,6 @@ public class Blog implements Serializable{
 		this.addTime = addTime;
 	}
 	
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -78,7 +70,7 @@ public class Blog implements Serializable{
 			builder.append("text:").append(text).append(", ");
 		if (catagoryId != null)
 			builder.append("catagoryId:").append(catagoryId).append(", ");
-		builder.append("type:").append(type).append(", top:").append(top).append(", ");
+		builder.append("type:").append(type).append(", ");
 		if (updateTime != null)
 			builder.append("updateTime:").append(updateTime).append(", ");
 		if (addTime != null)
