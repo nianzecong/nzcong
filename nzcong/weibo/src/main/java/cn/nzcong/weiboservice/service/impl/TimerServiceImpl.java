@@ -22,6 +22,7 @@ import cn.nzcong.weiboservice.service.TimerService;
 @Component
 @Service
 public class TimerServiceImpl implements TimerService{
+	
 	private static Logger log = LoggerFactory.getLogger(TimerServiceImpl.class);
 	private static final String TOKEN_KEY = "weibo.admin.token";
 	@Autowired
@@ -31,7 +32,7 @@ public class TimerServiceImpl implements TimerService{
 	@Autowired
 	private ConfigService configService;
 	
-	private String getToken(){
+	public String getToken(){
 		return configService.getParameter("TOKEN_KEY");
 	}
 	
@@ -66,9 +67,10 @@ public class TimerServiceImpl implements TimerService{
 //				System.out.println();
 //		}
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
-		AppConfig.configure("E:/GIT/nzcong/nzcong/weibo/src/main/webapp/WEB-INF/appconfig.xml");
+		//AppConfig.configure("E:/GIT/nzcong/nzcong/weibo/src/main/webapp/WEB-INF/appconfig.xml");
 		TimerServiceImpl service = new TimerServiceImpl();
-		service.checkTimeLine();
+		System.out.println(service.getToken());
+//		service.checkTimeLine();
 	}
 	
 }

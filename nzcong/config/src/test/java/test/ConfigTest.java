@@ -17,10 +17,9 @@ public class ConfigTest {
 	
 	@Test
 	public void getParameter(){
-		
-		System.out.println("****** " + configService.getParameter("weibo.admin.token"));
-		configService.setParameter("weibo.admin.token", "2.00EaJgPD0Jdf5406d7fda56e7ilL6D");
-		System.out.println("****** " + configService.getParameter("weibo.admin.token"));
+		String token = configService.getParameter("weibo.admin.token");
+		System.out.println("****** " + token);
+		configService.setParameter("weibo.admin.token", token);
 		
 	}
 	
