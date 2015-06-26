@@ -6,7 +6,12 @@ import cn.nzcong.blog.model.Blog;
 
 public interface BlogDao {
 
-	public abstract int addBlog(Blog blog);
+	/**
+	 * 添加博客，返回ID
+	 * @param blog
+	 * @return
+	 */
+	public abstract String addBlog(Blog blog);
 	
 	public abstract int updateBlog(Blog blog);
 	

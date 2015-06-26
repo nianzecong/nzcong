@@ -42,6 +42,10 @@ public class Blog implements Serializable{
 	public int getType() {
 		return type;
 	}
+	/**
+	 * 0草稿，1已发布，2置顶，3隐藏
+	 * @param type
+	 */
 	public void setType(int type) {
 		this.type = type;
 	}
