@@ -34,7 +34,7 @@ public class BlogController {
 	
 	@RequestMapping(value = "/list")
 	public String list(String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return "list";
+		return "bloglist";
 	}
 
 	@RequestMapping(value = "/getcatagorylist")

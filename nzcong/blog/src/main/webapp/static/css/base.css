@@ -62,27 +62,26 @@ div.weiboFunction span{color:#aFa48E;float:right;margin:5px}
 div.weiboFunction span.fl{color:#aFa48E;float:left;margin:5px;}
 div.weiboFunction span a{color:#aFa48E !important;float:left;margin:5px;}
 
+
+div.publicBlogFunction{border-bottom:1px solid #dFd4bE;height:50px}
+div.publicBlogFunction span.button{background:#dFd4bE;border:1px solid #bFb4bE;color:#7F747E;display:inline-block;width:auto;padding:5px 10px 5px 10px;cursor:pointer;font-size: 1.2rem;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
+
+div.blogItem {padding:0px 0 20px 0;vertical-align: center;}
+div.blogItem:not(:last-child){border-bottom:1px solid #dFd4bE}
+div.blogItem div.blogtitle{margin:10px 0 10px 0}
+div.blogItem div.blogtitle h1{display:inline;}
+div.blogItem div.blogtitle span.time{margin:0px 10px 0px 10px}
+div.blogItem div.blogtitle span.flag{background:#dFd4bE;border:1px solid #bFb4bE;color:#7F747E;display:inline-block;width:auto;padding:1px 3px 1px 3px;margin:0px 10px 0 0;cursor:pointer;font-size: 1rem;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
+div.blogItem div.blogtitle span.flag.red{background:red;color:#FFF;border-color: #664444;}
 div.blogeditor {display:inline;width:48%;background:}
-
 div.blogeditor textarea{background: #bbb;}
-div.blogeditor textarea::-webkit-input-placeholder {color:#ddd;} /* WebKit browsers */
-div.blogeditor textarea:-moz-placeholder {color:#fff;} /* Mozilla Firefox 4 to 18 */
-div.blogeditor textarea::-moz-placeholder {color:#fff;} /* Mozilla Firefox 19+ */
-div.blogeditor textarea:-ms-input-placeholder {color:#fff;} /* Internet Explorer 10+ */
-
-div.blogeditor span.info{color:gray}
-div.blogeditor input.blogTitle{width:70%;height:22px;margin-bottom:3px}
-div.blogeditor select.blogCatagory{width:28%;height:28px;margin-bottom:3px}
-div.blogeditor input.button{display:inline-block;border:0px;height:30px;width:50px;color:#fff;cursor:pointer;}
-div.blogeditor input.ok{background: #02bb00;width:100px}
-div.blogeditor input.cancel{background: #f25561; width:70px}
-div.markdownReview{display:inline-block;width:47%;height:500px;margin:2%;overflow:hidden;overflow-y: auto;}
 
 a.button-menu{display:none !important;}
 
-
+/*竖屏*/
 @media (min-width: 321px) and (max-width:979px){
 	div.container{width:100%}
+	div.publicBlogFunction{display:none}
 	body{margin-top:90px}
 	div.header div.navi{position:fixed;left:0;top:50px;width:100%;background:#dFd4bE;}
 	div.header div.navi a{margin:10px}
@@ -92,8 +91,10 @@ a.button-menu{display:none !important;}
 	}
 }
 
+/*横屏*/
 @media (orientation:landscape) and (min-width: 321px) and (max-width:979px){
 	div.container{display:block;}
+	div.publicBlogFunction{display:block}
 	body{margin-top:0px}
 	
 	div.container{padding-top:50px;padding-left:60px;width:auto;}
@@ -110,8 +111,11 @@ a.button-menu{display:none !important;}
 	}
 }
 
+/*超窄*/
 @media (max-width:320px){
 	div.container{width:100%}
+	div.publicBlogFunction{display:none}
+		
 	body{margin-top:90px}
 	div.header div.navi{position:fixed;left:0;top:50px;width:100%;background:#dFd4bE;}
 	div.header div.navi a{margin:10px;}
