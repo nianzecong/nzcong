@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<title></title>
+		<link rel="stylesheet" href="css/base.css" />
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="container ft20">
+				<div class="menu">
+					<img src="img/bighead.png" class="fl bighead" />
+					<a href="http://weibo.com/nianzecong" target="blank" class="fl button-weibo button">
+						<span></span>
+					</a>
+					<a href="http://github.com/nianzecong" target="blank" class="fl button-git button">
+						<span></span>
+					</a>
+					<a href="javascript:void(0)" class="fr button-menu button"><span></span></a>
+				</div>
+				<div class="navi fr">
+					<a href="http://nzcong.cn" target="blank" class="mgt20">
+						<span>HOME</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<span class="title f30">
+				程序猿新手一枚，前端后端都会点，<br/>
+				最骄傲的一点是当时爷爷给取的名字很棒，<br/>
+				各种账号各种注册，二十多年从未失手。<br/>
+				讨厌学习各种框架怎么用，<br/>
+				估计有一天会被技术大潮淹没淘汰掉，<br/>
+				然后回家卖红薯。<br/><br/>
+				微博：<a href="http://weibo.com/nianzecong" target="blank">http://weibo.com/nianzecong</a><br/>
+				GIT：<a href="http://github.com/nianzecong" target="blank">http://github.com/nianzecong</a><br/><br/>
+				不知道做什么好<br/>
+				先弄好静态页面<br/>
+				想好了再加进来
+				</span>
+			<br/>
+			<br/>
+			<span class="title f30">==== 网站进程 =========</span><br/>
+			<span class="title f30">20150524 <br/>终于搞了个服务器，学了学微博api，写了个<a href="http://weibo.nzcong.cn/">展示自己timeline的页面</a>，用到Hessian远程调用服务，虽然都是在本地服务器。</span><br/>
+			<span class="title f30">20150521 <br/>处理了超低分辨率，按钮收缩成一个按钮，犯懒，事件还没处理，你点了也没有用</span><br/>
+			<span class="title f30">20150507 <br/>增加Github链接，增加响应式，包括桌面版、手机横竖屏，超低分辨率还没处理</span><br/>
+			<span class="title f30">20150506 <br/>静态框架初版、微博链接</span><br/>
+			
+		</div>
+		<div class="bottom">
+			<div class="container">
+				<a href="http://nzcong.cn/" target="_self">http://nzcong.cn/</a>
+				<br/>
+				<a href="javascript:void(0);" target="_self">nianzecong在126.com</a>
+				<br/>
+				<a href="http://www.miitbeian.gov.cn/" target="blank">鲁ICP备15014475号</a>
+				<br/>
+				<span>本网站只供个人学习讨论之用</span>
+				<br/>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var isIE = !-[1,];
+				if(isIE){
+					$("body").html("对不起，因为作者比较傲娇，所以该页面不支持IE访问，请使用chrome或者");
+				}
+			});
+		</script>
+	</body>
+
+</html>

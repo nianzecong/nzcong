@@ -15,6 +15,7 @@ public class Blog implements Serializable{
 	
 	private String updateTime;// 修改时间
 	private String addTime;// 添加时间
+	
 	public String getId() {
 		return id;
 	}

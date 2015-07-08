@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>     
+<!DOCTYPE mapper PUBLIC 
+"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.nzcong.blog.dao.BlogDao">
+
+	<sql id="select">
+		SELECT *
+	</sql>
+
+	<insert id="addBlog" parameterType="cn.nzcong.blog.model.Blog">
+		INSERT INTO blog(
+			Id, CatagoryId, Title, Text, Type,
+			Updatetime, Addtime
+		) VALUES(
+			#{blog.id}, #{blog.catagoryId}, #{blog.title}, #{blog.text}, #{blog.type},
+			now(), now()
+		)
+	</insert>
+
+	<update id="updateBlog" parameterType="cn.nzcong.blog.model.Blog">
+		UPDATE blog
+		SET CatagoryId = #{blog.catagoryId},
+			Title = #{blog.title},
+			Text = #{blog.text},
+			Type = #{blog.type},
+			Updatetime = now()
+		WHERE Id = #{blog.id}
+	</update>
+
+	<select id="getBlog" resultType="cn.nzcong.blog.model.Blog"
+		parameterType="String">
+		<include refid="select" />
+		FROM blog
+		WHERE Id = #{id}
+	</select>
+
+	<sql id="searchCase">
+	 	1=1
+		<if test="param.id != null and param.id != ''">
+			AND Id = #{param.id}
+		</if>
+		<if test="param.catagoryId != null and param.catagoryId != ''">
+			AND CatagoryId = #{param.catagoryId}
+		</if>
+		<if test="param.type != null and param.type != ''">
+			AND Type = #{param.type}
+		</if>
+		<if test="param.updateTimeStart != null and param.updateTimeStart != ''">
+			AND Updatetime &gt; #{param.updateTimeStart}
+		</if>
+		<if test="param.updateTimeEnd != null and param.updateTimeEnd != ''">
+			AND Updatetime &lt; #{param.updateTimeEnd}
+		</if>
+		<if test="param.addTimeStart != null and param.addTimeStart != ''">
+			AND Addtime &gt; #{param.addTimeStart}
+		</if>
+		<if test="param.addTimeEnd != null and param.addTimeEnd != ''">
+			AND Addtime &lt; #{param.addTimeEnd}
+		</if>
+	</sql>
+
+	<select id="searchBlogsCount" resultType="int" parameterType="Map">
+		SELECT COUNT(Id)
+		FROM blog
+		<where>
+			<include refid="searchCase" />
+		</where>
+	</select>
+
+	<select id="searchBlogs" resultType="cn.nzcong.blog.model.Blog"
+		parameterType="Map">
+		<include refid="select" />
+		FROM blog
+		<where>
+			<include refid="searchCase" />
+		</where>
+		ORDER BY Updatetime DESC limit #{param.offset},#{param.pageSize}
+	</select>
+	
+	<select id="getCategories" resultType="cn.nzcong.blog.model.Category">
+		SELECT *
+		FROM category
+		ORDER BY Cname DESC
+	</select>
+
+	
+
+</mapper>

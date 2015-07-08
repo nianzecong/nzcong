@@ -1,9 +1,11 @@
 package cn.nzcong.blog.service;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.nzcong.blog.model.Blog;
-import cn.nzcong.blog.model.Catagory;
+import cn.nzcong.blog.model.Category;
+import cn.nzcong.blog.model.PageList;
 
 public interface BlogService {
 
@@ -20,10 +22,11 @@ public interface BlogService {
 	
 	public abstract List<Blog> getDrafts();
 	
-	public abstract int getCount();
+	public abstract int getCount(Map<String, Object> param);
 	
-	public abstract List<Blog> getPagedList(int currentPage, int pageSize);
+	public abstract Blog getById(String id);
 	
-	public abstract List<Catagory> getCatagorys();
+	public abstract PageList getPagedList(Map<String, Object> param, int currentPage, int pageSize);
 	
+	public abstract List<Category> getCategoryList();
 }

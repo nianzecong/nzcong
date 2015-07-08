@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>blog</artifactId>
 	<packaging>war</packaging>
-	
+
 	<dependencies>
 
 		<dependency>
@@ -95,6 +95,13 @@
 			<artifactId>dom4j</artifactId>
 		</dependency>
 
+		<!-- GENERAL UTILS begin -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<!-- GENERAL UTILS end -->
+
 		<!-- MYBATIS begin -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -123,8 +130,13 @@
 			<groupId>com.caucho</groupId>
 			<artifactId>hessian</artifactId>
 		</dependency>
-		<!-- spring-junit测试 -->
 
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+
+		<!-- spring-junit测试 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -139,10 +151,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
 		</dependency>
 	</dependencies>
 </project>

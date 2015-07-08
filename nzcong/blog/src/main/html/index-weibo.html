@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<title></title>
+		<link rel="stylesheet" href="css/base.css" />
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="container ft20">
+				<div class="menu">
+					<img src="img/bighead.png" class="fl bighead" />
+					<a href="http://weibo.com/nianzecong" target="blank" class="fl button-weibo button">
+						<span></span>
+					</a>
+					<a href="http://github.com/nianzecong" target="blank" class="fl button-git button">
+						<span></span>
+					</a>
+					<a href="javascript:void(0)" class="fr button-menu button"><span></span></a>
+				</div>
+				<div class="navi fr">
+					<a href="http://nzcong.cn" target="blank" class="mgt20">
+						<span>HOME</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="weibolist">
+				<div class="weiboItem">
+					<div class="weiboUser"><a href="javascript:">@N小聪</a></div>
+					<div class="weiboContent" id="testContent">
+						<div>不知道加什么内容容容容好，<a class="link" href="javascript:void(0)">baidu.com</a><br/>
+						先弄好静态页面<br/>
+						想好了再加进来<br/>
+						先弄好静态页面<br/>
+						想好了再加进来<br/>
+						</div>
+					</div>
+					<div class="weiboImages">
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+					</div>
+					<div class="weiboFunction">
+						<span>
+							<a class="link" href="javascript:void(0)">1231</a>
+							<a class="huati" href="javascript:void(0)">1231</a>
+						</span>
+					</div>
+				</div>
+				<div class="weiboItem">
+					<div class="weiboUser"><a href="javascript:">@N小聪</a></div>
+					<div class="weiboContent">
+						<div>不知道加什么内容好，
+						先弄好静态页面
+						想好了再加进来
+						</div>
+					</div>
+					<div class="weiboImages">
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+					</div>
+					<div class="weiboFunction">
+						<span>转发</span>
+					</div>
+				</div>
+				<div class="weiboItem">
+					<div class="weiboUser"><a href="javascript:">@N小聪</a></div>
+					<div class="weiboContent">
+						<div>不知道加什么
+						</div>
+					</div>
+					<div class="weiboImages">
+						<img src="img/bighead.png"/>
+					</div>
+					<div class="weiboFunction">
+						<span>转发</span>
+					</div>
+				</div>
+				<div class="weiboItem">
+					<div class="weiboUser"><a href="javascript:">@N小聪</a></div>
+					<div class="weiboContent">
+						<div>不知道加什么内容好，
+						先弄好静态页面
+						想好了再加进来
+						</div>
+					</div>
+					<div class="weiboImages">
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+						<img src="img/bighead.png"/>
+					</div>
+					<div class="weiboFunction">
+						<span>转发</span>
+					</div>
+				</div>
+			</div>
+			
+			
+			<span class="title f30"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				不知道加什么内容好，<br/>
+				先弄好静态页面<br/>
+				想好了再加进来
+				</span>
+			<br/>
+			<br/>
+			<span class="title f30">==== 网站进程 =========</span>
+			<br/>
+			<span class="title f30">20150506 <br/>静态框架初版、微博链接</span>
+			<br/>
+			<span class="title f30">20150507 <br/>增加Github链接，增加响应式，包括桌面版、手机横竖屏，超低分辨率还没处理</span>
+			<br/>
+		</div>
+		<div class="bottom">
+			<div class="container">
+				<a href="http://nzcong.cn/" target="_self">http://nzcong.cn/</a>
+				<br/>
+				<a href="javascript:void(0);" target="_self">nianzecong在126.com</a>
+				<br/>
+				<a href="http://www.miitbeian.gov.cn/" target="blank">鲁ICP备15014475号</a>
+				<br/>
+				<span>本网站只供个人学习讨论之用</span>
+				<br/>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var isIE = !-[1,];
+				if(isIE){
+					$("body").html("对不起，因为作者比较傲娇，所以该页面不支持IE访问，请使用chrome或者firefox。");
+				}
+				
+				var str = "#然气经由希腊#和土耳其@往欧洲：。希腊@政府近来一直忙于和债权人就改革问题举@你大妈依旧是你大妈，实名周旭，@北京大学 行谈判，俄罗斯被认为可能是希腊金融救助的来源之一。http://t.cn/R29S6Fb";
+				str = "hhhhttp://baidu.com/hhh么么112http://test.baidu.com/ http://test.baidu.com/test"
+				str += "\n";
+				var m = str.match(/http:\/\/.+?(?=[\s，。,$\u4e00-\u9fa5])/g); 
+				for(var i = 0 ; m && i < m.length ; i++){
+					var link = m[i];
+					var mlink = ("." + m[i].replace("http://", "").replace("..", ".")).match(/([\.]\w+?\.\w+?)(?=\/.*)/g);
+					//alert(mlink ? mlink[0].substr(1) : mlink);
+					var domain = mlink && mlink[0] ? mlink[0].substr(1) : "LINK"
+					str = str.replace(link, "<a class=\"link\" href=\"" + link + "\" title=\"" + link + "\">" + domain + "</a>");
+				}
+				
+				var mhuati = str.match(/#(\S+)#/g);
+				for(var i = 0 ; mhuati && i < mhuati.length ; i++){
+					var huati = mhuati[i];
+					str = str.replace(huati, "<a class=\"huati\" href=\"" + huati + "\" title=\"" + huati + "\">" + huati + "</a>");
+				}
+				var mat = str.match(/@([_0-9a-zA-Z\u4e00-\u9fa5]{2,10})(?=[^0-9a-zA-Z\/:\.])/g);
+				for(var j = 0 ; mat && j < mat.length ; j++){
+					var at = mat[j];
+					str = str.replace(at, "<a class=\"at\" href=\"http://weibo.com/n/" + at.replace("@","") + "\" title=\"" + at.replace("@","") + "\">" + at + "</a>");
+				}
+				$("#testContent").html(str);
+			});
+		</script>
+	</body>
+
+</html>

@@ -2,7 +2,7 @@ package cn.nzcong.blog.model;
 
 import java.io.Serializable;
 
-public class Catagory implements Serializable {
+public class Category implements Serializable {
 
 	private static final long serialVersionUID = 2087722443451871284L;
 	
