@@ -1,6 +1,9 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +48,11 @@ public class BlogTest {
 	
 	@Test
 	public void searchBlogList(){
-		print("searchBlogList\n" + blogService.getPagedList(new HashMap<String, Object>(), 1, 2).toString());
+		Map<String, Object> params = new HashMap<String, Object>();
+		List<String> types = new ArrayList<String>();
+		types.add("2");
+		params.put("types", types);
+		print("searchBlogList\n" + blogService.getPagedList(params, 1, 2).toString());
 	}
 	
 	@Test

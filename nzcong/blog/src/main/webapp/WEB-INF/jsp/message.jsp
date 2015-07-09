@@ -39,10 +39,8 @@
 		 blog list start 
 		 -->
 		<div class="container main">
-			<div class="publicBlogFunction">
-				<span class="button">新</span>
-			</div>
-			<div class="bloglist"></div>
+			message: ${message }
+			<br/><br/><br/><br/><br/>
 		</div>
 		
 		<!----------------------------------
@@ -60,16 +58,8 @@
 				<br/>
 			</div>
 		</div>
-		<script type="text/javascript" src="${ctx}/js/jquery-1.11.3.js"></script>
-		<script type="text/javascript" src="${ctx}/js/bloglist.js"></script>
 		<script type="text/javascript">
-			var a = "${a}";
-			$(function() {
-				var isIE = !-[1,];
-				if(isIE){
-					$("body div.container.main").html("对不起，因为作者比较傲娇，所以该页面不支持IE访问，请使用chrome或者firefox。</br></br></br></br></br></br>");
-				}
-			});
+		
 		</script>
 	</body>
 

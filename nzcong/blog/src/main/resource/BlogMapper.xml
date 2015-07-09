@@ -11,21 +11,22 @@
 
 	<insert id="addBlog" parameterType="cn.nzcong.blog.model.Blog">
 		INSERT INTO blog(
-			Id, CatagoryId, Title, Text, Type,
-			Updatetime, Addtime
+		Id, CatagoryId, Title, Text, Type,
+		Updatetime, Addtime
 		) VALUES(
-			#{blog.id}, #{blog.catagoryId}, #{blog.title}, #{blog.text}, #{blog.type},
-			now(), now()
+		#{blog.id}, #{blog.catagoryId}, #{blog.title}, #{blog.text}, #{blog.type},
+		now(), now()
 		)
 	</insert>
 
 	<update id="updateBlog" parameterType="cn.nzcong.blog.model.Blog">
 		UPDATE blog
-		SET CatagoryId = #{blog.catagoryId},
-			Title = #{blog.title},
-			Text = #{blog.text},
-			Type = #{blog.type},
-			Updatetime = now()
+		SET CatagoryId
+		= #{blog.catagoryId},
+		Title = #{blog.title},
+		Text = #{blog.text},
+		Type = #{blog.type},
+		Updatetime = #{blog.updateTime}
 		WHERE Id = #{blog.id}
 	</update>
 
@@ -37,15 +38,19 @@
 	</select>
 
 	<sql id="searchCase">
-	 	1=1
+		1=1
 		<if test="param.id != null and param.id != ''">
 			AND Id = #{param.id}
 		</if>
 		<if test="param.catagoryId != null and param.catagoryId != ''">
 			AND CatagoryId = #{param.catagoryId}
 		</if>
-		<if test="param.type != null and param.type != ''">
-			AND Type = #{param.type}
+		<if test="param.types != null and param.types != ''">
+			AND Type in
+			<foreach item="item" index="index" collection="param.types" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
 		</if>
 		<if test="param.updateTimeStart != null and param.updateTimeStart != ''">
 			AND Updatetime &gt; #{param.updateTimeStart}
@@ -76,15 +81,14 @@
 		<where>
 			<include refid="searchCase" />
 		</where>
-		ORDER BY Updatetime DESC limit #{param.offset},#{param.pageSize}
+		ORDER BY Type, Addtime, Updatetime DESC 
+		LIMIT #{param.offset},#{param.pageSize}
 	</select>
-	
+
 	<select id="getCategories" resultType="cn.nzcong.blog.model.Category">
 		SELECT *
 		FROM category
 		ORDER BY Cname DESC
 	</select>
-
-	
 
 </mapper>
