@@ -16,9 +16,9 @@ import cn.nzcong.blog.service.BlogService;
 import cn.nzcong.blog.util.UuidUtils;
 import cn.nzcong.config.service.ConfigService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
-public class BlogTest {
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
+public class BlogTest {/*
 
 	private static final String blogId = UuidUtils.getUUID();
 	
@@ -26,6 +26,12 @@ public class BlogTest {
 	ConfigService configService;
 	@Autowired
 	BlogService blogService;
+	
+	private void print(String content){
+		System.out.println("****************************\n");
+		System.out.println(content);
+		System.out.println("\n****************************");
+	}
 	
 	
 	@Test
@@ -69,14 +75,7 @@ public class BlogTest {
 		print("getCategories\n" + blogService.getCategoryList());
 	}
 	
-	
-	private void print(String content){
-		System.out.println("****************************\n");
-		System.out.println(content);
-		System.out.println("\n****************************");
-	}
-	
 	public static void main(String[] args) {
 		System.out.println(UuidUtils.getUUID());
 	}
-}
+*/}

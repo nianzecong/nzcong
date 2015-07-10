@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.nzcong.blog.model.Blog;
 import cn.nzcong.blog.service.BlogService;
@@ -43,19 +44,40 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value = "/editor")
-	public String timeline(String blogId, String pwd, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String editor(String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
 		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
 			model.put("message", "你TM在逗我？");
 			return "message";
 		}
-		model.put("blog", blogService.getBlog(blogId));
-		//TODO 跳转后编辑
-		return "editor";
+		//model.put("blog", blogService.getBlog(blogId));
+		return "blogeditor";
+	}
+
+	@RequestMapping(value = "/editor/{blogId}")
+	public String editorById(@PathVariable("blogId") String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes){
+		redirectAttributes.addFlashAttribute( "blog", blogService.getBlog(blogId));
+		 return "redirect:/editor" ;
 	}
 	
 	@RequestMapping(value = "/list")
-	public String list(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String list(HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
+		if(!StringUtils.isEmpty(pwd) && pwd.equals(this.getParameter(PWD_KEY))){
+			model.put("login", "success");
+		}
 		return "bloglist";
+	}
+	
+	@RequestMapping(value = "/view/{blogId}")
+	public String view(@PathVariable("blogId") String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+		Blog blog = blogService.getBlog(blogId);
+		if(blog == null){
+			model.put("message", "你瞅啥？？根本就没有这篇博客");
+			return "message";
+		}
+		model.put("blog", blogService.getBlog(blogId));
+		return "blogview";
 	}
 	
 	@RequestMapping(value = "/list/{pwd}")
@@ -63,9 +85,23 @@ public class BlogController {
 		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
 			model.put("message", "你TM在逗我？");
 			return "message";
+		} else {
+			request.getSession().setAttribute(PWD_KEY, pwd);
 		}
-		model.put("a", pwd);
-		return "bloglist";
+		return "redirect:/list";
+	}
+	
+	@RequestMapping(value = "/update")
+	public @ResponseBody
+	String updateTop(String blogId, int type, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
+		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
+			return "0";
+		}
+		Blog blog = blogService.getBlog(blogId);
+		blog.setType(type);
+		int result = blogService.updateBlog(blog);
+		return String.valueOf(result);
 	}
 
 	@RequestMapping(value = "/getcatagorylist")

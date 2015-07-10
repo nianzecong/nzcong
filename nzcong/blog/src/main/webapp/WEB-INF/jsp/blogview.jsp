@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<title>博客列表</title>
+		<title>博客查看</title>
 		<link rel="stylesheet" href="${ctx}/css/base.css" />
 	</head>
 
@@ -39,12 +39,16 @@
 		 blog list start 
 		 -->
 		<div class="container main">
-			<div class="publicBlogFunction">
-				<span class="button"><a href="${ctx}/editor">新</a></span>
+			<%-- <div class="publicBlogFunction">
+				<span class="button"><a href="${ctx}/editor/${blog.id}">改</a></span>
+			</div> --%>
+			<div class="blogItem">
+				<div class="blogtitle"><a href="javascript:"><h1>${blog.title }</h1></a><br/><span class="time">${blog.addTime }</span></div>
+				<br/>
+				<div class="blogContent" id="blog">${blog.text }</div>
 			</div>
-			<div class="bloglist"></div>
 		</div>
-		
+		<br/>
 		<!----------------------------------
 		  bottom start 
 		 -->
@@ -62,7 +66,7 @@
 		</div>
 		<script type="text/javascript" src="${ctx}/js/jquery-1.11.3.js"></script>
 		<script type="text/javascript" src="${ctx}/js/marked.js"></script>
-		<script type="text/javascript" src="${ctx}/js/bloglist.js"></script>
+		<script type="text/javascript" src="${ctx}/js/DateFormat.js"></script>
 		<script type="text/javascript">
 			var login = "${login}";
 			var ctx = "${ctx }";
@@ -71,6 +75,7 @@
 				if(isIE){
 					$("body div.container.main").html("对不起，因为作者比较傲娇，所以该页面不支持IE访问，请使用chrome或者firefox。</br></br></br></br></br></br>");
 				}
+				$("#blog").html(marked($("#blog").html()));
 			});
 		</script>
 	</body>

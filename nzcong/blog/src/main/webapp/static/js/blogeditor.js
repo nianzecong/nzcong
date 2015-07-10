@@ -60,8 +60,8 @@ function startSaveMonitor(){
 		if($("#blogTitle").val() == "" || $("#markdownInput").val() == ""){
 			return;
 		}
-		save(0);
-		log("存草稿 - " + new Date().format("hh:mm"));
+		save($("#blogType").val());
+		log("存草稿 - " + new Date().format("hh:mm") + "- type: " + $("#blogType").val());
 		startSaveMonitor();
 	}, 60000);
 }
@@ -71,7 +71,12 @@ function log(content){
 }
 
 $(function() {
+	$("#markdownInput").bind("keyup", function() {
+		$("#markdownview").html(marked($(this).val()));
+	});
 	initCategories();
 	log("startSaveMonitor...");
 	startSaveMonitor();
+
+	$("#markdownview").html(marked($("#markdownInput").html()));
 });

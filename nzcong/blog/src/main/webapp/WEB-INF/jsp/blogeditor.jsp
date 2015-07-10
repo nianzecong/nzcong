@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 
@@ -6,14 +8,14 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<title>markdown编辑器</title>
-		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="${ctx}/css/base.css" />
 	</head>
 
 	<body>
 		<div class="header">
 			<div class="container ft20">
 				<div class="menu">
-					<img src="images/bighead.png" class="fl bighead" />
+					<img src="${ctx}/images/bighead.png" class="fl bighead" />
 					<a href="http://weibo.com/nianzecong" target="blank" class="fl button-weibo button">
 						<span></span>
 					</a>
@@ -32,13 +34,14 @@
 		
 		<div class="container">
 			<div class="fl blogeditor">
-				<input class="blogTitle" placeholder="这里输入标题" id="blogTitle" value="" class="fl">
+				<input type="text" class="blogTitle" placeholder="这里输入标题" id="blogTitle" value="${blog.title }" class="fl">
+				<input type="hidden" id="blogType" value="${blog.type}"/>
 				<select class="blogCatagory" id="blogCatagory" class="fr">
 					<option value="1">分类</option>
 				</select>
 				<div class="cl"></div>
-				<textarea id="markdownInput" placeholder="这里输入markdown语法的内容" rows="30" cols="" style="width:100%"></textarea>
-				<input type="button" class="button ok" value="提交" onclick="javascript:save(1)"/>
+				<textarea id="markdownInput" placeholder="这里输入markdown语法的内容" rows="30" cols="" style="width:100%">${blog.text }</textarea>
+				<input type="button" class="button ok" value="提交" onclick="javascript:save($('#blogType').val())"/>
 				<input type="button" class="button cancel" value="删除" onclick="javascript:save(3)"/>
 				<span class="info fr" id="info"></span>
 			</div>
@@ -57,17 +60,12 @@
 				<br/>
 			</div>
 		</div>
-		<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
-		<script type="text/javascript" src="js/marked.js"></script>
-		<script type="text/javascript" src="js/DateFormat.js"></script>
-		<script type="text/javascript" src="js/blog.js"></script>
+		<script type="text/javascript" src="${ctx}/js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="${ctx}/js/marked.js"></script>
+		<script type="text/javascript" src="${ctx}/js/DateFormat.js"></script>
+		<script type="text/javascript" src="${ctx}/js/blogeditor.js"></script>
 		<script type="text/javascript">
-			var currentBlog = "${blogid}";
-			$(function() {
-				$("#markdownInput").bind("keyup", function() {
-					$("#markdownview").html(marked($(this).val()));
-				});
-			});
+			var currentBlog = "${blog.id}";
 		</script>
 	</body>
 
