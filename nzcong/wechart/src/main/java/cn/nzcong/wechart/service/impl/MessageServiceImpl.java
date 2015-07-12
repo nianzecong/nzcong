@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.nzcong.robot.service.RobotService;
+import cn.nzcong.wechart.exception.MessageException;
 import cn.nzcong.wechart.message.EventMessage;
-import cn.nzcong.wechart.message.Message;
+import cn.nzcong.wechart.message.BaseMessage;
 import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VoiceMessage;
 import cn.nzcong.wechart.service.BaseMessageHandler;
@@ -69,7 +70,7 @@ public class MessageServiceImpl implements MessageService{
 	 * @see cn.nzcong.wechart.service.MessageService#processMsg(cn.nzcong.wechart.message.TextMessage)
 	 */
 	@Override
-	public Message processMsg(TextMessage msg) {
+	public BaseMessage processMsg(TextMessage msg)  throws MessageException {
 		return this.getTextMessageHandler().handle(msg);
 	}
 
@@ -77,7 +78,7 @@ public class MessageServiceImpl implements MessageService{
 	 * @see cn.nzcong.wechart.service.MessageService#processMsg(cn.nzcong.wechart.message.VoiceMessage)
 	 */
 	@Override
-	public Message processMsg(VoiceMessage msg) {
+	public BaseMessage processMsg(VoiceMessage msg)  throws MessageException {
 		return getVoiceMessageHandler().handle(msg);
 	}
 
@@ -85,7 +86,7 @@ public class MessageServiceImpl implements MessageService{
 	 * @see cn.nzcong.wechart.service.MessageService#processMsg(cn.nzcong.wechart.message.EventMessage)
 	 */
 	@Override
-	public Message processMsg(EventMessage msg) {
+	public BaseMessage processMsg(EventMessage msg)  throws MessageException {
 		return getEventMessageHandler().handle(msg);
 	}
 	

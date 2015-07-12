@@ -4,7 +4,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-public class VoiceMessage extends Message{
+public class VoiceMessage extends BaseMessage{
 	
 	private static final long serialVersionUID = -1617262303859861785L;
 	

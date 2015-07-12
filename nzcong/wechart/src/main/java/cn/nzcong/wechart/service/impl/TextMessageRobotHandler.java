@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cn.nzcong.robot.exception.RobotException;
 import cn.nzcong.robot.service.RobotService;
-import cn.nzcong.wechart.message.Message;
+import cn.nzcong.wechart.message.BaseMessage;
 import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.service.BaseMessageHandler;
 
@@ -22,7 +22,7 @@ public class TextMessageRobotHandler extends BaseMessageHandler{
 	private RobotService robotService; 
 	
 	@Override
-	public Message handle(Message _msg) {
+	public BaseMessage handle(BaseMessage _msg) {
 		log.debug("handle...");
 		TextMessage msg = (TextMessage) _msg;
 		TextMessage respMsg = new TextMessage();

@@ -10,7 +10,7 @@ import org.dom4j.Element;
 
 import cn.nzcong.wechart.exception.MessageException;
 
-public class EventMessage extends Message {
+public class EventMessage extends BaseMessage {
 
 	private static final long serialVersionUID = -1617262303859861785L;
 

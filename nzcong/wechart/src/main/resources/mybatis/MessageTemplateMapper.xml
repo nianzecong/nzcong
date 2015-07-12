@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>     
+<!DOCTYPE mapper PUBLIC 
+"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.nzcong.wechart.dao.MessageTemplateDao">
+	
+	<!-- 用户添加 -->
+	<insert id="add" parameterType="cn.nzcong.wechart.model.Template">
+		INSERT INTO wx_msg_template(
+		TemplateId, MessageType, MessageContent, AddTime, KeyWords, Title, Description, Pic)
+		VALUES(
+		#{templateId}, #{messageType}, #{messageContent}, now(), #{keyWords}, #{title}, #{description}, #{pic}
+		)
+	</insert>
+
+	<update id="update" parameterType="cn.nzcong.wechart.model.Template">
+		UPDATE wx_msg_template
+		SET	MessageType = #{messageType}, MessageContent = #{messageContent}, KeyWords = #{value} 
+		WHERE TemplateId = #{templateId}
+	</update>
+
+	<select id="getList" resultType="cn.nzcong.wechart.model.Template">
+		select *
+		from wx_msg_template
+	</select>
+
+</mapper>

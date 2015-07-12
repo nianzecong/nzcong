@@ -8,7 +8,7 @@ import org.dom4j.Element;
 
 import cn.nzcong.wechart.utils.VerifyUtils;
 
-public abstract class Message implements Serializable {
+public abstract class BaseMessage implements Serializable {
 
 	private static final long serialVersionUID = 838560790455515832L;
 
@@ -18,11 +18,11 @@ public abstract class Message implements Serializable {
 	protected int createTime;
 	protected String msgType;
 
-	public Message() {
+	public BaseMessage() {
 
 	}
 
-	public Message(Document document){
+	public BaseMessage(Document document){
 		try {
 			Element rootElt = document.getRootElement();
 			
@@ -51,17 +51,20 @@ public abstract class Message implements Serializable {
 		Element FromUserName = DocumentHelper.createElement("FromUserName");
 		Element CreateTime = DocumentHelper.createElement("CreateTime");
 		Element MsgType = DocumentHelper.createElement("MsgType");
+		Element MsgId = DocumentHelper.createElement("MsgId");
 
 		ToUserName.setText(this.toUser);
 		FromUserName.setText(this.fromUser);
 		CreateTime.setText(String.valueOf(this.createTime));
 		MsgType.setText(this.getMsgType());
+		MsgId.setText(this.getMsgId());
 		
 		Element root = DocumentHelper.createElement("xml");
 		root.add(ToUserName);
 		root.add(FromUserName);
 		root.add(CreateTime);
 		root.add(MsgType);
+		root.add(MsgId);
 
 		resp.setRootElement(root);
 		

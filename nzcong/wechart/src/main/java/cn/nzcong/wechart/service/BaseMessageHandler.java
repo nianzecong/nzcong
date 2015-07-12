@@ -7,11 +7,12 @@ import java.util.Map;
 import org.dom4j.Document;
 
 import cn.nzcong.wechart.exception.MessageException;
+import cn.nzcong.wechart.message.BaseMessage;
 import cn.nzcong.wechart.message.EventMessage;
 import cn.nzcong.wechart.message.ImageMessage;
 import cn.nzcong.wechart.message.LinkMessage;
 import cn.nzcong.wechart.message.LocationMessage;
-import cn.nzcong.wechart.message.Message;
+import cn.nzcong.wechart.message.NewsMessage;
 import cn.nzcong.wechart.message.ShortvideoMessage;
 import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VideoMessage;
@@ -38,14 +39,14 @@ public abstract class BaseMessageHandler{
 		return setNextnode(nextnode);
 	}
 	
-	public abstract Message handle(Message msg);
+	public abstract BaseMessage handle(BaseMessage msg)throws MessageException ;
 
-	public Message nextHandler(Message msg){
+	public BaseMessage nextHandler(BaseMessage msg) throws MessageException {
 		return nextnode == null ? null : nextnode.handle(msg);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private static final Map<String, Class> msgTypeMap = new HashMap<String, Class>(){
+	public static final Map<String, Class> msgTypeMap = new HashMap<String, Class>(){
 		private static final long serialVersionUID = -3280081752827029930L;
 		{
 			put("image", ImageMessage.class);
@@ -56,17 +57,18 @@ public abstract class BaseMessageHandler{
 			put("video", VideoMessage.class);
 			put("voice", VoiceMessage.class);
 			put("event", EventMessage.class);
+			put("news", NewsMessage.class);
 		}
 	};
 	
-	public static Message decode(Document document) throws MessageException{
+	public static BaseMessage decode(Document document) throws MessageException{
 		String messageType = document.getRootElement().elementText("MsgType");
-		Message message = null;
+		BaseMessage message = null;
 		Constructor constructor;
 		try {
 			constructor = BaseMessageHandler.msgTypeMap.get(messageType).getDeclaredConstructor(new Class[] { Document.class});
 			constructor.setAccessible(true);
-			message = (Message) constructor.newInstance(new Object[] { document });
+			message = (BaseMessage) constructor.newInstance(new Object[] { document });
 		} catch (Exception e) {
 			throw new MessageException("Message decode error", e);
 		}

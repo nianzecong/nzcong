@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.nzcong.robot.service.RobotService;
-import cn.nzcong.wechart.message.Message;
+import cn.nzcong.wechart.message.BaseMessage;
 import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VoiceMessage;
 import cn.nzcong.wechart.service.BaseMessageHandler;
@@ -23,7 +23,7 @@ public class VoiceMessageRobotHandler extends BaseMessageHandler{
 	private RobotService robotService; 
 
 	@Override
-	public Message handle(Message _msg) {
+	public BaseMessage handle(BaseMessage _msg) {
 		log.debug("handle...");
 		TextMessage respMsg = new TextMessage();
 		VoiceMessage msg = (VoiceMessage) _msg;

@@ -3,7 +3,7 @@ package cn.nzcong.wechart.message;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-public class VideoMessage extends Message{
+public class VideoMessage extends BaseMessage{
 	
 	private static final long serialVersionUID = -1617262303859861785L;
 	
