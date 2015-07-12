@@ -17,25 +17,33 @@ import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VideoMessage;
 import cn.nzcong.wechart.message.VoiceMessage;
 
-public abstract class BaseMessageService{
+public abstract class BaseMessageHandler{
 	
-	private BaseMessageService nextnode;
+	private BaseMessageHandler nextnode;
 	
-	protected BaseMessageService(){
+	protected BaseMessageHandler(){
 		
 	}
 	
-	public BaseMessageService getNextnode() {
+	public BaseMessageHandler getNextnode() {
 		return nextnode;
 	}
 
-	public BaseMessageService setNextnode(BaseMessageService nextnode) {
+	public BaseMessageHandler setNextnode(BaseMessageHandler nextnode) {
 		this.nextnode = nextnode;
 		return this.nextnode;
 	}
 	
+	public BaseMessageHandler nextnode(BaseMessageHandler nextnode) {
+		return setNextnode(nextnode);
+	}
+	
 	public abstract Message handle(Message msg);
 
+	public Message nextHandler(Message msg){
+		return nextnode == null ? null : nextnode.handle(msg);
+	}
+	
 	@SuppressWarnings("rawtypes")
 	private static final Map<String, Class> msgTypeMap = new HashMap<String, Class>(){
 		private static final long serialVersionUID = -3280081752827029930L;
@@ -56,7 +64,7 @@ public abstract class BaseMessageService{
 		Message message = null;
 		Constructor constructor;
 		try {
-			constructor = BaseMessageService.msgTypeMap.get(messageType).getDeclaredConstructor(new Class[] { Document.class});
+			constructor = BaseMessageHandler.msgTypeMap.get(messageType).getDeclaredConstructor(new Class[] { Document.class});
 			constructor.setAccessible(true);
 			message = (Message) constructor.newInstance(new Object[] { document });
 		} catch (Exception e) {
