@@ -26,7 +26,7 @@ import cn.nzcong.wechart.message.ShortvideoMessage;
 import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VideoMessage;
 import cn.nzcong.wechart.message.VoiceMessage;
-import cn.nzcong.wechart.message.handler.MessageHandler;
+import cn.nzcong.wechart.service.BaseMessageService;
 import cn.nzcong.wechart.service.MessageService;
 import cn.nzcong.wechart.utils.SecurityUtils;
 
@@ -76,7 +76,7 @@ public class CommonController {
 		    Document document = reader.read(inputStream);
 		    log.debug("recieve message : " + document.asXML());
 		    // 解码为对应的message对象
-		    Message msg = MessageHandler.decode(document);
+		    Message msg = BaseMessageService.decode(document);
 			log.debug(msg.getClass().getName() + " : " + JSONObject.toJSONString(msg));
 			Message resp = null;
 			if(msg instanceof TextMessage){

@@ -1,4 +1,4 @@
-package cn.nzcong.wechart.message.handler;
+package cn.nzcong.wechart.service;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -17,8 +17,25 @@ import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VideoMessage;
 import cn.nzcong.wechart.message.VoiceMessage;
 
-public class MessageHandler {
+public abstract class BaseMessageService{
 	
+	private BaseMessageService nextnode;
+	
+	protected BaseMessageService(){
+		
+	}
+	
+	public BaseMessageService getNextnode() {
+		return nextnode;
+	}
+
+	public BaseMessageService setNextnode(BaseMessageService nextnode) {
+		this.nextnode = nextnode;
+		return this.nextnode;
+	}
+	
+	public abstract Message handle(Message msg);
+
 	@SuppressWarnings("rawtypes")
 	private static final Map<String, Class> msgTypeMap = new HashMap<String, Class>(){
 		private static final long serialVersionUID = -3280081752827029930L;
@@ -39,13 +56,18 @@ public class MessageHandler {
 		Message message = null;
 		Constructor constructor;
 		try {
-			constructor = MessageHandler.msgTypeMap.get(messageType).getDeclaredConstructor(new Class[] { Document.class});
+			constructor = BaseMessageService.msgTypeMap.get(messageType).getDeclaredConstructor(new Class[] { Document.class});
 			constructor.setAccessible(true);
 			message = (Message) constructor.newInstance(new Object[] { document });
 		} catch (Exception e) {
 			throw new MessageException("Message decode error", e);
 		}
 		return message;
+	}
+	
+	
+	public String replaceEnter(String content){
+		return content.replaceAll("<br>", "\n");
 	}
 	
 }

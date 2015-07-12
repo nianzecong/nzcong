@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.nzcong.robot.exception.RobotException;
 import cn.nzcong.robot.service.RobotService;
 import cn.nzcong.wechart.message.EventMessage;
 import cn.nzcong.wechart.message.Message;
 import cn.nzcong.wechart.message.TextMessage;
 import cn.nzcong.wechart.message.VoiceMessage;
+import cn.nzcong.wechart.service.BaseMessageService;
 import cn.nzcong.wechart.service.MessageService;
 
 @Service
@@ -21,24 +21,24 @@ public class MessageServiceImpl implements MessageService{
 
 	private static Logger log = LoggerFactory.getLogger(MessageServiceImpl.class);
 
+	private BaseMessageService textMessageHandler;
+	
 	@Autowired
 	private RobotService robotService;
+	@Autowired
+	private BaseMessageService textMessageRobotHandler;
+	@Autowired
+	private BaseMessageService textMessageTemplateHandler;
+	
+	public BaseMessageService getTextMessageHandler(){
+		textMessageHandler = textMessageTemplateHandler;
+		textMessageHandler.setNextnode(textMessageRobotHandler);
+		return textMessageHandler;
+	}
 	
 	@Override
 	public Message processMsg(TextMessage msg) {
-		TextMessage respMsg = new TextMessage();
-		try {
-			String content = robotService.chart(msg.getContent());
-			respMsg.setContent(replaceEnter(content));
-		} catch (RobotException e) {
-			log.error("processMsg - TEXT - chart error", e);
-			respMsg.setContent("矮油，聪哥(机器人)好像生病了，过一阵再来找我吧");
-		}
-		respMsg.setCreateTime(Integer.parseInt(String.valueOf(new Date().getTime() / 1000)));
-		respMsg.setFromUser(msg.getToUser());
-		respMsg.setMsgType(msg.getMsgType());
-		respMsg.setToUser(msg.getFromUser());
-		return respMsg;
+		return this.getTextMessageHandler().handle(msg);
 	}
 
 	@Override
