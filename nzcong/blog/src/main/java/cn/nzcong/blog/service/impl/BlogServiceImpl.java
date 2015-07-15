@@ -51,7 +51,7 @@ public class BlogServiceImpl implements BlogService {
 		pageSize = pageSize < 1 ? 10 : pageSize;
 		int total = blogDao.searchBlogsCount(param);
 		int totalpage = (total + pageSize - 1) / pageSize;
-		currentPage = currentPage < 1 ? 1 : currentPage > totalpage ? totalpage : currentPage;
+		currentPage = currentPage < 1 ? 1 : totalpage > 0 && currentPage > totalpage ? totalpage : currentPage;
 		int offset =  (currentPage - 1) * pageSize; 
 		param.put("offset", offset);
 		param.put("pageSize", pageSize);

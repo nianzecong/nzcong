@@ -42,7 +42,11 @@ public class BlogController {
 	private String getParameter(String key){
 		return configService.getParameter(key);
 	}
-	
+
+	@RequestMapping(value = "/")
+	public String index(){
+		return "redirect:/list";
+	}
 	@RequestMapping(value = "/editor")
 	public String editor(String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
 		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
@@ -61,10 +65,11 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value = "/list")
-	public String list(HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+	public String list(String status, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
 		if(!StringUtils.isEmpty(pwd) && pwd.equals(this.getParameter(PWD_KEY))){
 			model.put("login", "success");
+			model.put("status", status);
 		}
 		return "bloglist";
 	}
@@ -80,13 +85,49 @@ public class BlogController {
 		return "blogview";
 	}
 	
+	@RequestMapping(value = "/print/{blogId}")
+	public String print(@PathVariable("blogId") String blogId, HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+		Blog blog = blogService.getBlog(blogId);
+		if(blog == null){
+			model.put("message", "根本就没有这篇博客");
+			return "message";
+		}
+		model.put("blog", blogService.getBlog(blogId));
+		return "blogview-print";
+	}
+	
 	@RequestMapping(value = "/list/{pwd}")
-	public String list(@PathVariable("pwd") String pwd, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String listAdmin(@PathVariable("pwd") String pwd, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
 			model.put("message", "你TM在逗我？");
 			return "message";
 		} else {
 			request.getSession().setAttribute(PWD_KEY, pwd);
+		}
+		return "redirect:/list";
+	}
+	
+	@RequestMapping(value = "/draft")
+	public String draftList(HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
+		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
+			model.put("message", "你TM在逗我？");
+			return "message";
+		} else {
+			request.getSession().setAttribute(PWD_KEY, pwd);
+			redirectAttributes.addAttribute("status", "draft");
+		}
+		return "redirect:/list";
+	}
+	@RequestMapping(value = "/hidden")
+	public String hiddenList(HttpServletRequest request, HttpServletResponse response, ModelMap model, final RedirectAttributes redirectAttributes) {
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
+		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
+			model.put("message", "你TM在逗我？");
+			return "message";
+		} else {
+			request.getSession().setAttribute(PWD_KEY, pwd);
+			redirectAttributes.addAttribute("status", "hidden");
 		}
 		return "redirect:/list";
 	}
@@ -137,11 +178,43 @@ public class BlogController {
 	
 	@RequestMapping(value = "/list/get")
 	public @ResponseBody
-	JSONObject getCatagoryList(Map<String, Object> params, int currentPage, int pageSize, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	JSONObject getBlogList(Map<String, Object> params, int currentPage, int pageSize, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		log.debug("getBlogList start - " + params + "{currentPage: " + currentPage + ", pageSize: " + pageSize + "}");
 		List<String> types = new ArrayList<String>();
 		types.add("1");// 已发布
 		types.add("2");// 置顶
 		params.put("types", types);
+		log.debug("getBlogList End");
+		return JSONObject.parseObject(JSONObject.toJSONString(blogService.getPagedList(params, currentPage, pageSize)));
+	}
+	
+	@RequestMapping(value = "/draft/get")
+	public @ResponseBody
+	JSONObject getDraftList(Map<String, Object> params, int currentPage, int pageSize, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		log.debug("getPagedList start - " + params + "{currentPage: " + currentPage + ", pageSize: " + pageSize + "}");
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
+		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
+			return null;
+		}
+		List<String> types = new ArrayList<String>();
+		types.add("0");// 草稿
+		params.put("types", types);
+		log.debug("getPagedList End");
+		return JSONObject.parseObject(JSONObject.toJSONString(blogService.getPagedList(params, currentPage, pageSize)));
+	}
+	
+	@RequestMapping(value = "/hidden/get")
+	public @ResponseBody
+	JSONObject getHiddenList(Map<String, Object> params, int currentPage, int pageSize, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		log.debug("getHiddenList start - " + params + "{currentPage: " + currentPage + ", pageSize: " + pageSize + "}");
+		String pwd = (String)request.getSession().getAttribute(PWD_KEY);
+		if(StringUtils.isEmpty(pwd) || !pwd.equals(this.getParameter(PWD_KEY))){
+			return null;
+		}
+		List<String> types = new ArrayList<String>();
+		types.add("3");// 隐藏
+		params.put("types", types);
+		log.debug("getHiddenList end");
 		return JSONObject.parseObject(JSONObject.toJSONString(blogService.getPagedList(params, currentPage, pageSize)));
 	}
 

@@ -18,16 +18,18 @@ function initCategories() {
 			if (list && list.length > 1) {
 				for ( var i = 0; i < list.length; i++) {
 					var category = list[i];
-					$("#blogCatagory").append(
-							"<option value=\"" + category.cid + "\">"
-									+ category.cname + "</option>");
+					$("#blogCatagory").append("<option value=\"" + category.cid + "\">" + category.cname + "</option>");
 				}
+				$("#blogCatagory").val($("#catagoryId").val());
 			}
 		}
 	});
 }
 
 function save(type) {
+	if($("#blogTitle").val() == "" || $("#markdownInput").val() == ""){
+		return;
+	}
 	var u = domain + "/blog/save";
 	type = parseInt(type);
 	type = type == type ? type : 0;
@@ -57,9 +59,6 @@ function save(type) {
 
 function startSaveMonitor(){
 	setTimeout(function(){
-		if($("#blogTitle").val() == "" || $("#markdownInput").val() == ""){
-			return;
-		}
 		save($("#blogType").val());
 		log("存草稿 - " + new Date().format("hh:mm") + "- type: " + $("#blogType").val());
 		startSaveMonitor();
@@ -73,10 +72,16 @@ function log(content){
 $(function() {
 	$("#markdownInput").bind("keyup", function() {
 		$("#markdownview").html(marked($(this).val()));
+		$('pre code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
 	});
 	initCategories();
 	log("startSaveMonitor...");
 	startSaveMonitor();
 
 	$("#markdownview").html(marked($("#markdownInput").html()));
+	$('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
 });

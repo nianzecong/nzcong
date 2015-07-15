@@ -14,29 +14,6 @@
 
 	<body>
 		<!----------------------------------
-		 header start 
-		 -->
-		<div class="header">
-			<div class="container ft20">
-				<div class="menu">
-					<img src="${ctx}/images/bighead.png" class="fl bighead" />
-					<a href="http://weibo.com/nianzecong" target="blank" class="fl button-weibo button">
-						<span></span>
-					</a>
-					<a href="http://github.com/nianzecong" target="blank" class="fl button-git button">
-						<span></span>
-					</a>
-					<a href="javascript:void(0)" class="fr button-menu button"><span></span></a>
-				</div>
-				<div class="navi fr">
-					<a href="http://nzcong.cn" target="blank" class="mgt20">
-						<span>HOME</span>
-					</a>
-				</div>
-			</div>
-		</div>
-		
-		<!----------------------------------
 		 blog list start 
 		 -->
 		<div class="container main">
@@ -53,18 +30,10 @@
 		<!----------------------------------
 		  bottom start 
 		 -->
-		<div class="bottom">
 			<div class="container">
-				<a href="http://nzcong.cn/" target="_self">http://nzcong.cn/</a>
-				<br/>
-				<a href="javascript:void(0);" target="_self">nianzecong在126.com</a>
-				<br/>
-				<a href="http://www.miitbeian.gov.cn/" target="blank">鲁ICP备15014475号</a>
-				<br/>
-				<span>本网站只供个人学习讨论之用</span>
-				<br/>
+				------<br/>
+				<a href="http://nzcong.cn/" target="_self" style="color:#ccc">http://nzcong.cn/</a>
 			</div>
-		</div>
 		<script type="text/javascript" src="${ctx}/js/jquery-1.11.3.js"></script>
 		<script type="text/javascript" src="${ctx}/js/marked.js"></script>
 		<script type="text/javascript" src="${ctx}/js/DateFormat.js"></script>

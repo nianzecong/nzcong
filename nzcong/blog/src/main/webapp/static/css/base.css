@@ -66,6 +66,7 @@ div.weiboFunction span a{color:#aFa48E !important;float:left;margin:5px;}
 div.publicBlogFunction{border-bottom:1px solid #dFd4bE;height:50px}
 div.publicBlogFunction span.button{background:#dFd4bE;border:1px solid #bFb4bE;color:#7F747E;display:inline-block;width:auto;padding:5px 10px 5px 10px;cursor:pointer;font-size: 1.2rem;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
 
+
 div.blogItem {padding:0px 0 0px 0;vertical-align: center;}
 div.blogItem:not(:last-child){border-bottom:1px solid #dFd4bE}
 div.blogItem div.blogtitle{margin:10px 0 10px 0}
@@ -73,12 +74,20 @@ div.blogItem div.blogtitle h1{display:inline;}
 div.blogItem div.blogtitle span.time{margin:0px 10px 0px 10px}
 div.blogItem a.flag{background:#dFd4bE;border:1px solid #bFb4bE;color:#7F747E;display:inline-block;width:auto;padding:1px 3px 1px 3px;margin:0px 10px 0 0;cursor:pointer;font-size: 1rem;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
 div.blogItem a.flag.red{background:red;color:#FFF;border-color: #664444;}
-div.blogeditor {display:inline;width:48%;background:}
-div.blogeditor textarea{background: #bbb;}
+div.blogFunction{padding:5px 0 5px 0;height:30px}
+div.blogFunction a.flag{display:none}
+div.blogItem:hover div.blogFunction a.flag{display:block}
 
-div.blogItem div.blogFunction{padding:5px 0 5px 0;height:30px !important}
-div.blogItem div.blogFunction a.flag{display:none !important}
-div.blogItem:hover div.blogFunction a.flag{display:block !important}
+div.blogeditor {display:inline-block;width:48%;}
+div.blogeditor textarea{background: #ccc;height:600px}
+
+div.markdownview {margin-left:30px;display:inline-block;width:48%;height:100%;}
+div.markdownview div{width :100%;height:600px;overflow-y:scroll;}
+
+input.button{display:inline-block;height:30px;border:none;margin:5px;padding:5px;cursor:pointer}
+input.button:hover{color:yellow}
+input.button.ok{background-color:#02bb00;color:white;width:100px}
+input.button.cancel{background-color:#f25561;color:white;width:70px;}
 
 
 a.button-menu{display:none !important;}

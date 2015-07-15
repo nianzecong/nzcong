@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<title>markdown编辑器</title>
 		<link rel="stylesheet" href="${ctx}/css/base.css" />
+		<link rel="stylesheet" href="${ctx}/js/highlight/css/zenburn.css">
 	</head>
 
 	<body>
@@ -36,16 +37,20 @@
 			<div class="fl blogeditor">
 				<input type="text" class="blogTitle" placeholder="这里输入标题" id="blogTitle" value="${blog.title }" class="fl">
 				<input type="hidden" id="blogType" value="${blog.type}"/>
+				<input type="hidden" id="catagoryId" value="${blog.catagoryId}"/>
 				<select class="blogCatagory" id="blogCatagory" class="fr">
-					<option value="1">分类</option>
+					<option value="">分类</option>
 				</select>
 				<div class="cl"></div>
 				<textarea id="markdownInput" placeholder="这里输入markdown语法的内容" rows="30" cols="" style="width:100%">${blog.text }</textarea>
-				<input type="button" class="button ok" value="提交" onclick="javascript:save($('#blogType').val())"/>
+				<input type="button" class="button ok" value="保存" onclick="javascript:save($('#blogType').val() == '' ? 1 : $('#blogType').val())"/>
 				<input type="button" class="button cancel" value="删除" onclick="javascript:save(3)"/>
+				<input type="button" class="button ok" value="提交" onclick="javascript:save(1)" style="width:70px"/>
 				<span class="info fr" id="info"></span>
 			</div>
-			<div class="markdownReview" id="markdownview" class="fr"></div>
+			<div class="markdownview">
+				<div class="markdownReview" id="markdownview" class="fr"></div>
+			</div>
 		</div>
 		<div class="cl"></div>
 		<div class="bottom">
@@ -63,6 +68,8 @@
 		<script type="text/javascript" src="${ctx}/js/jquery-1.11.3.js"></script>
 		<script type="text/javascript" src="${ctx}/js/marked.js"></script>
 		<script type="text/javascript" src="${ctx}/js/DateFormat.js"></script>
+		<script type="text/javascript" src="${ctx}/js/highlight/highlight.pack.js"></script>
+		
 		<script type="text/javascript" src="${ctx}/js/blogeditor.js"></script>
 		<script type="text/javascript">
 			var currentBlog = "${blog.id}";
