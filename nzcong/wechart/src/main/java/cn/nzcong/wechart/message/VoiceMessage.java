@@ -13,7 +13,7 @@ public class VoiceMessage extends BaseMessage{
 	private String recognition;// 语音识别结果，UTF8编码 
 	
 	public VoiceMessage(){
-		
+		super("voice");
 	}
 	
 	public VoiceMessage(Document document){

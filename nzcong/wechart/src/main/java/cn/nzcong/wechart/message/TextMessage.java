@@ -11,7 +11,7 @@ public class TextMessage extends BaseMessage{
 	private String content;
 	
 	public TextMessage(){
-		
+		super("text");
 	}
 	
 	public TextMessage(Document document){

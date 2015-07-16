@@ -37,6 +37,7 @@ public class TextMessageRobotHandler extends BaseMessageHandler{
 		respMsg.setFromUser(msg.getToUser());
 		respMsg.setMsgType(msg.getMsgType());
 		respMsg.setToUser(msg.getFromUser());
+		respMsg.setMsgId(msg.getMsgId());
 		log.debug("handle - resp:" + respMsg);
 		return respMsg;
 	}

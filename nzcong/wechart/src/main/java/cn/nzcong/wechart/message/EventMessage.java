@@ -18,7 +18,7 @@ public class EventMessage extends BaseMessage {
 	private CommonMsg eventData;
 
 	public EventMessage() {
-
+		super("event");
 	}
 
 	public EventMessage(Document document) throws MessageException {

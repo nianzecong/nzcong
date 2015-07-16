@@ -14,7 +14,7 @@ public class NewsMessage extends BaseMessage{
 	private List<Article> articles;
 	
 	public NewsMessage(){
-		
+		super("news");
 	}
 	
 	public NewsMessage(Document document){
@@ -102,7 +102,7 @@ public class NewsMessage extends BaseMessage{
 		Element articleCountElt = DocumentHelper.createElement("ArticleCount");
 		Element articlesElt = DocumentHelper.createElement("Articles");
 
-		articleCountElt.setText(String.valueOf(this.articleCount));
+		articleCountElt.setText(String.valueOf(this.articles.size()));
 		for(Article art : this.articles){
 			Element itemElt = DocumentHelper.createElement("item");
 			
@@ -113,7 +113,7 @@ public class NewsMessage extends BaseMessage{
 			
 			titleElt.setText(art.title);
 			descriptionElt.setText(art.description);
-			picUrlElt.setText(art.url);
+			picUrlElt.setText(art.picUrl);
 			urlElt.setText(art.url);
 			
 			itemElt.add(titleElt);
@@ -122,9 +122,9 @@ public class NewsMessage extends BaseMessage{
 			itemElt.add(urlElt);
 			articlesElt.add(itemElt);
 		}
-		
-		document.add(articleCountElt);
-		document.add(articlesElt);
+		Element root = document.getRootElement();
+		root.add(articleCountElt);
+		root.add(articlesElt);
 		return document;
 	}
 

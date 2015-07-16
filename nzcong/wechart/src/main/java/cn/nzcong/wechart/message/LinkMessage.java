@@ -14,7 +14,7 @@ public class LinkMessage extends BaseMessage{
 	
 	
 	public LinkMessage(){
-		
+		super("link");
 	}
 	
 	public LinkMessage(Document document){

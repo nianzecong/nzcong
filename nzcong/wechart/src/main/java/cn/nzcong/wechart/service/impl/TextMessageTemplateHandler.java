@@ -40,11 +40,9 @@ public class TextMessageTemplateHandler extends BaseMessageHandler{
 					if("text".equals(t.getMessageType())){
 						// 回复text消息
 						resMessage = new TextMessage();
-						resMessage.setMsgType("text");
 						((TextMessage)resMessage).setContent(t.getMessageContent());
 					} else if("news".equals(t.getMessageType())){
-						resMessage = new LinkMessage();
-						resMessage.setMsgType("news");
+						resMessage = new NewsMessage();
 						//TODO 暂时不需要回复多条图文消息，等需要时需要与数据库一起处理
 						((NewsMessage)resMessage).setArticleCount(1);
 						// 实例化一条图文消息
@@ -53,13 +51,14 @@ public class TextMessageTemplateHandler extends BaseMessageHandler{
 						art.setPicUrl(t.getPic());
 						art.setTitle(t.getTitle());
 						art.setUrl(t.getMessageContent());
-						// 加入肯德基豪华午餐
+						// 加入消息列表
 						List<NewsMessage.Article> arts = new ArrayList<NewsMessage.Article>();
 						arts.add(art);
 						((NewsMessage)resMessage).setArticles(arts);
 					} else {
-						resMessage = new TextMessage();
 						log.error("handle - 未知的模板消息类型 - " + t);
+						resMessage = new TextMessage();
+						((TextMessage)resMessage).setContent("");
 					}
 					resMessage.setCreateTime(Integer.parseInt(String.valueOf(new Date().getTime() / 1000)));
 					resMessage.setFromUser(msg.getToUser());

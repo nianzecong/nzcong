@@ -8,7 +8,7 @@ import org.dom4j.Element;
 
 import cn.nzcong.wechart.utils.VerifyUtils;
 
-public abstract class BaseMessage implements Serializable {
+public abstract class Message implements Serializable {
 
 	private static final long serialVersionUID = 838560790455515832L;
 
@@ -18,11 +18,11 @@ public abstract class BaseMessage implements Serializable {
 	protected int createTime;
 	protected String msgType;
 
-	public BaseMessage(String msgType) {
-		this.msgType = msgType;
+	public Message() {
+
 	}
 
-	public BaseMessage(Document document){
+	public Message(Document document){
 		try {
 			Element rootElt = document.getRootElement();
 			
@@ -51,20 +51,17 @@ public abstract class BaseMessage implements Serializable {
 		Element FromUserName = DocumentHelper.createElement("FromUserName");
 		Element CreateTime = DocumentHelper.createElement("CreateTime");
 		Element MsgType = DocumentHelper.createElement("MsgType");
-		Element MsgId = DocumentHelper.createElement("MsgId");
 
-		ToUserName.setText(this.toUser == null ? "" : this.toUser );
-		FromUserName.setText(this.fromUser == null ? "" : this.fromUser );
+		ToUserName.setText(this.toUser);
+		FromUserName.setText(this.fromUser);
 		CreateTime.setText(String.valueOf(this.createTime));
-		MsgType.setText(this.getMsgType() == null ? "" : this.getMsgType() );
-		MsgId.setText(this.getMsgId() == null ? "" : this.getMsgId()) ;
+		MsgType.setText(this.getMsgType());
 		
 		Element root = DocumentHelper.createElement("xml");
 		root.add(ToUserName);
 		root.add(FromUserName);
 		root.add(CreateTime);
 		root.add(MsgType);
-		root.add(MsgId);
 
 		resp.setRootElement(root);
 		

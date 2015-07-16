@@ -32,9 +32,9 @@ public class MessageServiceImpl implements MessageService{
 	@Autowired
 	private BaseMessageHandler textMessageTemplateHandler;
 	@Autowired
-	private VoiceMessageRobotHandler voiceMessageRobotHandler;
+	private BaseMessageHandler voiceMessageRobotHandler;
 	@Autowired
-	private EventMessageSubscribeHandler eventMessageSubscribeHandler;
+	private BaseMessageHandler eventMessageSubscribeHandler;
 	
 	/****************************
 	 * 各种消息处理器 & 责任链装配
@@ -43,23 +43,29 @@ public class MessageServiceImpl implements MessageService{
 	private BaseMessageHandler voiceMessageHandler;
 	private BaseMessageHandler eventMessageHandler;
 	
+	// 文字消息处理器
 	private BaseMessageHandler getTextMessageHandler(){
 		if(textMessageHandler == null){
+			// 模板处理 - 机器人处理
 			textMessageTemplateHandler.nextnode(textMessageRobotHandler);
 			textMessageHandler = textMessageTemplateHandler;
 		}
 		return textMessageHandler;
 	}
 	
+	// 语音消息处理器
 	private BaseMessageHandler getVoiceMessageHandler(){
 		if(voiceMessageHandler == null){
+			// 机器人处理
 			voiceMessageHandler = voiceMessageRobotHandler;
 		}
 		return voiceMessageHandler;
 	}
 	
+	// 事件消息处理器
 	private BaseMessageHandler getEventMessageHandler(){
 		if(eventMessageHandler == null){
+			// 订阅消息
 			eventMessageSubscribeHandler.setNextnode(null);
 			eventMessageHandler = eventMessageSubscribeHandler;
 		}
